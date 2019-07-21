@@ -3,27 +3,39 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D89ED8561A304B36605AF6F3 /* Pods_Famlee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89D80BF5D330B644464BF577 /* Pods_Famlee.framework */; };
+		E2371E7B22E4478F002A35EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2371E7A22E4478F002A35EF /* Main.storyboard */; };
+		E2371E7D22E45DAD002A35EF /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2371E7C22E45DAD002A35EF /* SettingsTableViewController.swift */; };
+		E2371E7F22E471E8002A35EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2371E7E22E471E8002A35EF /* Assets.xcassets */; };
+		E2371E8322E47B5F002A35EF /* SalesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2371E8222E47B5F002A35EF /* SalesTableViewController.swift */; };
+		E2371E8522E496FD002A35EF /* RoomsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2371E8422E496FD002A35EF /* RoomsTableViewController.swift */; };
 		E2DF634022E422530040CA59 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DF633F22E422530040CA59 /* AppDelegate.swift */; };
-		E2DF634222E422530040CA59 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DF634122E422530040CA59 /* FirstViewController.swift */; };
-		E2DF634422E422530040CA59 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DF634322E422530040CA59 /* SecondViewController.swift */; };
-		E2DF634722E422530040CA59 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2DF634522E422530040CA59 /* Main.storyboard */; };
-		E2DF634922E422550040CA59 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2DF634822E422550040CA59 /* Assets.xcassets */; };
 		E2DF634C22E422550040CA59 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2DF634A22E422550040CA59 /* LaunchScreen.storyboard */; };
+		E2DF635422E424740040CA59 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E2DF635322E424740040CA59 /* GoogleService-Info.plist */; };
+		E2DF635622E426BC0040CA59 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DF635522E426BC0040CA59 /* LoginViewController.swift */; };
+		E2DF635C22E431A50040CA59 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DF635B22E431A50040CA59 /* LoginTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		426D532EC31E3C606CB0112B /* Pods-Famlee.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Famlee.debug.xcconfig"; path = "Target Support Files/Pods-Famlee/Pods-Famlee.debug.xcconfig"; sourceTree = "<group>"; };
+		89D80BF5D330B644464BF577 /* Pods_Famlee.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Famlee.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B65976E2C97D25E449204505 /* Pods-Famlee.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Famlee.release.xcconfig"; path = "Target Support Files/Pods-Famlee/Pods-Famlee.release.xcconfig"; sourceTree = "<group>"; };
+		E2371E7A22E4478F002A35EF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		E2371E7C22E45DAD002A35EF /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		E2371E7E22E471E8002A35EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E2371E8222E47B5F002A35EF /* SalesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesTableViewController.swift; sourceTree = "<group>"; };
+		E2371E8422E496FD002A35EF /* RoomsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsTableViewController.swift; sourceTree = "<group>"; };
 		E2DF633C22E422530040CA59 /* Famlee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Famlee.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2DF633F22E422530040CA59 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E2DF634122E422530040CA59 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		E2DF634322E422530040CA59 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
-		E2DF634622E422530040CA59 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E2DF634822E422550040CA59 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E2DF634B22E422550040CA59 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E2DF634D22E422550040CA59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E2DF635322E424740040CA59 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		E2DF635522E426BC0040CA59 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		E2DF635B22E431A50040CA59 /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +43,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D89ED8561A304B36605AF6F3 /* Pods_Famlee.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2991F029896785407C236B8E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				426D532EC31E3C606CB0112B /* Pods-Famlee.debug.xcconfig */,
+				B65976E2C97D25E449204505 /* Pods-Famlee.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		C1134B700D84B50F3B2C1707 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				89D80BF5D330B644464BF577 /* Pods_Famlee.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E2DF633322E422530040CA59 = {
 			isa = PBXGroup;
 			children = (
 				E2DF633E22E422530040CA59 /* Famlee */,
 				E2DF633D22E422530040CA59 /* Products */,
+				2991F029896785407C236B8E /* Pods */,
+				C1134B700D84B50F3B2C1707 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +88,35 @@
 		E2DF633E22E422530040CA59 /* Famlee */ = {
 			isa = PBXGroup;
 			children = (
+				E2371E7E22E471E8002A35EF /* Assets.xcassets */,
 				E2DF633F22E422530040CA59 /* AppDelegate.swift */,
-				E2DF634122E422530040CA59 /* FirstViewController.swift */,
-				E2DF634322E422530040CA59 /* SecondViewController.swift */,
-				E2DF634522E422530040CA59 /* Main.storyboard */,
-				E2DF634822E422550040CA59 /* Assets.xcassets */,
+				E2DF635722E426C30040CA59 /* Controller */,
+				E2DF635822E426DF0040CA59 /* View */,
 				E2DF634A22E422550040CA59 /* LaunchScreen.storyboard */,
 				E2DF634D22E422550040CA59 /* Info.plist */,
+				E2DF635322E424740040CA59 /* GoogleService-Info.plist */,
 			);
 			path = Famlee;
+			sourceTree = "<group>";
+		};
+		E2DF635722E426C30040CA59 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E2DF635522E426BC0040CA59 /* LoginViewController.swift */,
+				E2371E7C22E45DAD002A35EF /* SettingsTableViewController.swift */,
+				E2371E8222E47B5F002A35EF /* SalesTableViewController.swift */,
+				E2371E8422E496FD002A35EF /* RoomsTableViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E2DF635822E426DF0040CA59 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E2DF635B22E431A50040CA59 /* LoginTextField.swift */,
+				E2371E7A22E4478F002A35EF /* Main.storyboard */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +126,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E2DF635022E422550040CA59 /* Build configuration list for PBXNativeTarget "Famlee" */;
 			buildPhases = (
+				466A7C6C0C8DFA15FD1FF9D5 /* [CP] Check Pods Manifest.lock */,
 				E2DF633822E422530040CA59 /* Sources */,
 				E2DF633922E422530040CA59 /* Frameworks */,
 				E2DF633A22E422530040CA59 /* Resources */,
+				894402F1CE26D2BBAAEB8BD0 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -126,35 +180,73 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2DF634C22E422550040CA59 /* LaunchScreen.storyboard in Resources */,
-				E2DF634922E422550040CA59 /* Assets.xcassets in Resources */,
-				E2DF634722E422530040CA59 /* Main.storyboard in Resources */,
+				E2DF635422E424740040CA59 /* GoogleService-Info.plist in Resources */,
+				E2371E7F22E471E8002A35EF /* Assets.xcassets in Resources */,
+				E2371E7B22E4478F002A35EF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		466A7C6C0C8DFA15FD1FF9D5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Famlee-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		894402F1CE26D2BBAAEB8BD0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Famlee/Pods-Famlee-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Famlee/Pods-Famlee-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Famlee/Pods-Famlee-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E2DF633822E422530040CA59 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2DF634422E422530040CA59 /* SecondViewController.swift in Sources */,
+				E2DF635622E426BC0040CA59 /* LoginViewController.swift in Sources */,
+				E2371E8522E496FD002A35EF /* RoomsTableViewController.swift in Sources */,
+				E2371E8322E47B5F002A35EF /* SalesTableViewController.swift in Sources */,
+				E2371E7D22E45DAD002A35EF /* SettingsTableViewController.swift in Sources */,
 				E2DF634022E422530040CA59 /* AppDelegate.swift in Sources */,
-				E2DF634222E422530040CA59 /* FirstViewController.swift in Sources */,
+				E2DF635C22E431A50040CA59 /* LoginTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		E2DF634522E422530040CA59 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E2DF634622E422530040CA59 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		E2DF634A22E422550040CA59 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -284,10 +376,11 @@
 		};
 		E2DF635122E422550040CA59 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 426D532EC31E3C606CB0112B /* Pods-Famlee.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZPFY37265E;
+				DEVELOPMENT_TEAM = ANW63NCRG2;
 				INFOPLIST_FILE = Famlee/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -296,16 +389,17 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chinilaw.Famlee;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
 		E2DF635222E422550040CA59 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B65976E2C97D25E449204505 /* Pods-Famlee.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZPFY37265E;
+				DEVELOPMENT_TEAM = ANW63NCRG2;
 				INFOPLIST_FILE = Famlee/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -314,7 +408,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chinilaw.Famlee;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};
