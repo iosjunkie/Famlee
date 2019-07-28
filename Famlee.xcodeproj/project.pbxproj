@@ -8,11 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		D89ED8561A304B36605AF6F3 /* Pods_Famlee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89D80BF5D330B644464BF577 /* Pods_Famlee.framework */; };
+		E218EDE722E9C03400366E74 /* RemittanceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E218EDE622E9C03400366E74 /* RemittanceTableViewController.swift */; };
+		E21BD89D22E80FFD00D90417 /* ProductsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21BD89C22E80FFD00D90417 /* ProductsTableViewController.swift */; };
+		E21FDFBD22E72DD800E2AF9C /* LoadsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21FDFBC22E72DD800E2AF9C /* LoadsTableViewController.swift */; };
 		E2371E7B22E4478F002A35EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2371E7A22E4478F002A35EF /* Main.storyboard */; };
 		E2371E7D22E45DAD002A35EF /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2371E7C22E45DAD002A35EF /* SettingsTableViewController.swift */; };
 		E2371E7F22E471E8002A35EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2371E7E22E471E8002A35EF /* Assets.xcassets */; };
 		E2371E8322E47B5F002A35EF /* SalesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2371E8222E47B5F002A35EF /* SalesTableViewController.swift */; };
 		E2371E8522E496FD002A35EF /* RoomsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2371E8422E496FD002A35EF /* RoomsTableViewController.swift */; };
+		E2B102AC22E56D2800027D83 /* JuliusSansOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E2B102AB22E56C7A00027D83 /* JuliusSansOne-Regular.ttf */; };
+		E2B102AE22E5948200027D83 /* ExpensesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B102AD22E5948200027D83 /* ExpensesTableViewController.swift */; };
 		E2DF634022E422530040CA59 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DF633F22E422530040CA59 /* AppDelegate.swift */; };
 		E2DF634C22E422550040CA59 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2DF634A22E422550040CA59 /* LaunchScreen.storyboard */; };
 		E2DF635422E424740040CA59 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E2DF635322E424740040CA59 /* GoogleService-Info.plist */; };
@@ -24,11 +29,16 @@
 		426D532EC31E3C606CB0112B /* Pods-Famlee.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Famlee.debug.xcconfig"; path = "Target Support Files/Pods-Famlee/Pods-Famlee.debug.xcconfig"; sourceTree = "<group>"; };
 		89D80BF5D330B644464BF577 /* Pods_Famlee.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Famlee.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B65976E2C97D25E449204505 /* Pods-Famlee.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Famlee.release.xcconfig"; path = "Target Support Files/Pods-Famlee/Pods-Famlee.release.xcconfig"; sourceTree = "<group>"; };
+		E218EDE622E9C03400366E74 /* RemittanceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemittanceTableViewController.swift; sourceTree = "<group>"; };
+		E21BD89C22E80FFD00D90417 /* ProductsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsTableViewController.swift; sourceTree = "<group>"; };
+		E21FDFBC22E72DD800E2AF9C /* LoadsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadsTableViewController.swift; sourceTree = "<group>"; };
 		E2371E7A22E4478F002A35EF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		E2371E7C22E45DAD002A35EF /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		E2371E7E22E471E8002A35EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E2371E8222E47B5F002A35EF /* SalesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesTableViewController.swift; sourceTree = "<group>"; };
 		E2371E8422E496FD002A35EF /* RoomsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsTableViewController.swift; sourceTree = "<group>"; };
+		E2B102AB22E56C7A00027D83 /* JuliusSansOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JuliusSansOne-Regular.ttf"; sourceTree = "<group>"; };
+		E2B102AD22E5948200027D83 /* ExpensesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesTableViewController.swift; sourceTree = "<group>"; };
 		E2DF633C22E422530040CA59 /* Famlee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Famlee.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2DF633F22E422530040CA59 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E2DF634B22E422550040CA59 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -67,6 +77,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E2B102AA22E56C6500027D83 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				E2B102AB22E56C7A00027D83 /* JuliusSansOne-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		E2DF633322E422530040CA59 = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +106,7 @@
 		E2DF633E22E422530040CA59 /* Famlee */ = {
 			isa = PBXGroup;
 			children = (
+				E2B102AA22E56C6500027D83 /* Fonts */,
 				E2371E7E22E471E8002A35EF /* Assets.xcassets */,
 				E2DF633F22E422530040CA59 /* AppDelegate.swift */,
 				E2DF635722E426C30040CA59 /* Controller */,
@@ -106,6 +125,10 @@
 				E2371E7C22E45DAD002A35EF /* SettingsTableViewController.swift */,
 				E2371E8222E47B5F002A35EF /* SalesTableViewController.swift */,
 				E2371E8422E496FD002A35EF /* RoomsTableViewController.swift */,
+				E2B102AD22E5948200027D83 /* ExpensesTableViewController.swift */,
+				E21FDFBC22E72DD800E2AF9C /* LoadsTableViewController.swift */,
+				E21BD89C22E80FFD00D90417 /* ProductsTableViewController.swift */,
+				E218EDE622E9C03400366E74 /* RemittanceTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -179,6 +202,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2B102AC22E56D2800027D83 /* JuliusSansOne-Regular.ttf in Resources */,
 				E2DF634C22E422550040CA59 /* LaunchScreen.storyboard in Resources */,
 				E2DF635422E424740040CA59 /* GoogleService-Info.plist in Resources */,
 				E2371E7F22E471E8002A35EF /* Assets.xcassets in Resources */,
@@ -238,6 +262,10 @@
 				E2DF635622E426BC0040CA59 /* LoginViewController.swift in Sources */,
 				E2371E8522E496FD002A35EF /* RoomsTableViewController.swift in Sources */,
 				E2371E8322E47B5F002A35EF /* SalesTableViewController.swift in Sources */,
+				E218EDE722E9C03400366E74 /* RemittanceTableViewController.swift in Sources */,
+				E21FDFBD22E72DD800E2AF9C /* LoadsTableViewController.swift in Sources */,
+				E21BD89D22E80FFD00D90417 /* ProductsTableViewController.swift in Sources */,
+				E2B102AE22E5948200027D83 /* ExpensesTableViewController.swift in Sources */,
 				E2371E7D22E45DAD002A35EF /* SettingsTableViewController.swift in Sources */,
 				E2DF634022E422530040CA59 /* AppDelegate.swift in Sources */,
 				E2DF635C22E431A50040CA59 /* LoginTextField.swift in Sources */,

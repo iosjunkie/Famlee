@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import Firebase
 import ChameleonFramework
+import SVProgressHUD
 
 class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
@@ -18,29 +19,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
     @IBOutlet weak var housePick: UIPickerView!
     @IBOutlet weak var scrollView: UIScrollView!
     var ref: DatabaseReference!
-    var houses: [String] = []
+    var houses: [String] = ["Serenity","Cushan"]
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
         
         housePick.delegate = self
         housePick.dataSource = self
-    
-        
-        // If there is internet
-        if NetworkReachabilityManager()!.isReachable {
-            ref.child("houses").observeSingleEvent(of: .value, with: { (snapshot) in
-                // Get user value
-                if let value = snapshot.value as? NSDictionary {
-                    self.houses = (value.allKeys as! [String])
-                    self.housePick.reloadComponent(0)
-                    self.loginButton.isEnabled = true
-                }
-            }) { (error) in
-                print(error.localizedDescription)
-            }
-        }
-        
+        loginButton.isHidden = true
     }
     
     // Disable horizontal scrolling
@@ -54,7 +40,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
         if Auth.auth().currentUser == nil {
             // Do any additional setup after loading the view.
             password.delegate = self
-            password.becomeFirstResponder()
+            // If there is internet
+            if NetworkReachabilityManager()!.isReachable {
+                SVProgressHUD.show(withStatus: "Loading Houses")
+                housePick.reloadComponent(0)
+                self.loginButton.isHidden = false
+                SVProgressHUD.dismiss()
+                self.password.becomeFirstResponder()
+            }
         } else {
             performSegue(withIdentifier: "goToDash", sender: self)
         }
@@ -87,7 +80,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
             pickerLabel = UILabel()
         }
         let titleData = houses[row]
-        let myTitle = NSAttributedString(string: titleData, attributes: [NSAttributedString.Key.font:UIFont(name: "Didot", size: 40.0)!,NSAttributedString.Key.foregroundColor:UIColor(hexString: "D2A75F") as Any])
+        let myTitle = NSAttributedString(string: titleData, attributes: [NSAttributedString.Key.font:UIFont(name: "JuliusSansOne-Regular", size: 40.0)!,NSAttributedString.Key.foregroundColor:UIColor(hexString: "D2A75F") as Any])
         pickerLabel!.attributedText = myTitle
         pickerLabel!.textAlignment = .left
         
@@ -121,7 +114,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
         if houses.count != 0 {
             password.resignFirstResponder()
             Auth.auth().signIn(withEmail: "thefosterblue@me.com", password: password.text ?? "") { [weak self] user, error in
-                guard let strongSelf = self else {
+                guard self != nil else {
                     print("Failed Self")
                     self?.password.becomeFirstResponder()
                     return

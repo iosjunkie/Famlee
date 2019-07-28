@@ -14,7 +14,7 @@ class LoginTextField: UITextField {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        self.layer.borderColor = UIColor(white: 231 / 255, alpha: 1).cgColor
+        self.layer.borderColor = UIColor(hexString: "D2A75F").cgColor
         self.layer.borderWidth = 1
     }
     

@@ -1,8 +1,8 @@
 //
-//  SalesTableViewController.swift
+//  LoadsTableViewController.swift
 //  Famlee
 //
-//  Created by Jules Lee on 21/07/2019.
+//  Created by Jules Lee on 23/07/2019.
 //  Copyright © 2019 Jules Lee. All rights reserved.
 //
 
@@ -10,29 +10,24 @@ import UIKit
 import Firebase
 import SVProgressHUD
 
-class SalesTableViewController: UITableViewController {
+class LoadsTableViewController: UITableViewController {
+
     var ref: DatabaseReference!
-    var sales = [NSDictionary]()
+    var loads = [NSDictionary]()
     var currentYear = ""
     var currentMonth = 0
     var currentDay = ""
     lazy var refresher: UIRefreshControl = {
         let refresherControl = UIRefreshControl()
         refresherControl.tintColor = UIColor.black
-        refresherControl.addTarget(self, action: #selector(loadSales), for: .valueChanged)
+        refresherControl.addTarget(self, action: #selector(loadLoads), for: .valueChanged)
         return refresherControl
     }()
     let house: String! = UserDefaults.standard.string(forKey: "house")
+    @IBOutlet weak var totalLoad: UILabel!
     @IBOutlet weak var pickDate: UITextField!
+    var total : Float = 0
     let datePicker = UIDatePicker()
-    
-    // Summary
-    @IBOutlet weak var totalMerchandise: UILabel!
-    @IBOutlet weak var totalRooms: UILabel!
-    @IBOutlet weak var totalSales: UILabel!
-    var totalMerch : Float = 0
-    var totalRoom : Float = 0
-    var totalSale : Float = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,91 +58,62 @@ class SalesTableViewController: UITableViewController {
         dateFormatter.dateFormat = "d"
         currentDay = dateFormatter.string(from: date)
         dateFormatter.dateFormat = "MMMM d, yyyy"
-        pickDate.text = dateFormatter.string(from: datePicker.date)
+        pickDate.text = dateFormatter.string(from: date)
         
         ref = Database.database().reference()
-        SVProgressHUD.show(withStatus: "Loading Sales")
-        loadSales()
+        SVProgressHUD.show(withStatus: "Loading Loads")
+        loadLoads()
     }
 
     // MARK: - Table view data source
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sales.count
+        return loads.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var productLabel = ""
-        if String(describing: sales[indexPath.row]["category"]!) == "product" {
-            productLabel = String(describing: sales[indexPath.row]["product"]!)
-        } else {
-            productLabel = String(describing: sales[indexPath.row]["description"]!)
-        }
-        
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .currency
         
-        var createdAtString = String(describing: sales[indexPath.row]["createdAt"]!)
-        let createdAt = dateToTime(date: &createdAtString)
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "saleDailyCell", for: indexPath) as! SaleDailyCell
-        cell.number.text = String(describing: sales[indexPath.row]["number"]!)
-        cell.product.text = productLabel
-        cell.price.text = numberFormatter.string(from: NSNumber(value: sales[indexPath.row]["amount"] as? Float ?? sales[indexPath.row]["price"] as! Float))
-        cell.quantity.text = String(describing: sales[indexPath.row]["quantity"]!)
+        var createdAtString = String(describing: loads[indexPath.row]["createdAt"]!)
+        var createdAt = dateToTime(date: &createdAtString)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "loadDailyCell", for: indexPath) as! LoadDailyCell
+        cell.number.text = String(describing: loads[indexPath.row]["number"]!)
+        cell.phone.text = String(describing: loads[indexPath.row]["cell"]!)
         cell.dateTime.text = createdAt
+        cell.amount.text = numberFormatter.string(from: NSNumber(value: Float(loads[indexPath.row]["amount"] as! String)!))
+        cell.delete.tag = indexPath.row
         return cell
     }
-    
-    @objc func loadSales() {
-        let selectedDate = currentYear + "-\(currentMonth)-" + currentDay
 
-        ref.child("houses").child(house).child("daily").child("merchandises").child(selectedDate).observeSingleEvent(of: .value, with: { (snapshot1) in
-            // Reset the array
-            self.sales.removeAll()
-            self.totalMerch = 0
-            self.totalRoom = 0
-            self.totalSale = 0
-            // If no one has bought anything in yet
-            if !snapshot1.hasChildren() {
+
+    @objc func loadLoads() {
+        let selectedDate = currentYear + "-\(currentMonth)-" + currentDay
+        ref.child("houses").child(house).child("daily").child("loader").child(selectedDate).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Reset array
+            self.total = 0
+            self.loads.removeAll()
+            // If there are no people buying load
+            if !snapshot.hasChildren() {
                 self.stopLoading()
                 return
             }
-            // If there are sales
-            if let merchandises = snapshot1.value as? NSDictionary {
-                for merchandise in merchandises {
+            
+            // If everything is normal
+            if let loads = snapshot.value as? NSDictionary {
+                for load in loads {
                     //do your logic and validation here
-                    self.sales.append(merchandise.value as! NSDictionary)
-                    self.totalMerch += self.sales.last!["amount"] as? Float ?? self.sales.last!["price"] as! Float
-                    self.totalSale += self.sales.last!["amount"] as? Float ?? self.sales.last!["price"] as! Float
+                    self.loads.append(load.value as! NSDictionary)
+                    self.loads.last?.setValue(load.key as! String, forKey: "id")
+                    self.loads.last?.setValue(selectedDate, forKey: "date")
+                    self.total += Float(self.loads.last!["amount"] as! String)!
                 }
-                self.ref.child("houses").child(self.house).child("daily").child("rooms").child(selectedDate).observeSingleEvent(of: .value, with: { (snapshot2) in
-                    // If no one has checked in yet therefore, stop the laoding
-                    if !snapshot2.hasChildren() {
-                        self.stopLoading()
-                        return
-                    }
-                    // Get user value
-                    if let rooms = snapshot2.value as? NSDictionary {
-                        for room in rooms {
-                            //do your logic and validation here
-                            self.sales.append(room.value as! NSDictionary)
-                            self.totalRoom += self.sales.last!["amount"] as? Float ?? self.sales.last!["price"] as! Float
-                            self.totalSale += self.sales.last!["amount"] as? Float ?? self.sales.last!["price"] as! Float
-                        }
-                        // Successfully appeneded rooms
-                        self.sales = self.sales.sorted(by: {($0["number"] as? Int ?? 0) > ($1["number"] as? Int ?? 0)})
-                        self.stopLoading()
-                    }
-                }) { (error) in
-                    // If rooms cannot be loaded
-                    print(error.localizedDescription)
-                    self.sales = self.sales.sorted(by: {($0["number"] as! Int) > ($1["number"] as! Int)})
-                    self.stopLoading()
-                }
+                self.loads = self.loads.sorted(by: {($0["number"] as! Int) > ($1["number"] as! Int)})
+                self.tableView.reloadData()
             } else {
-                self.stopLoading()
+                print("no results")
             }
+            self.stopLoading()
+            // ...
         }) { (error) in
             print(error.localizedDescription)
             self.stopLoading()
@@ -155,17 +121,15 @@ class SalesTableViewController: UITableViewController {
     }
     
     func stopLoading() {
-        self.tableView.reloadData()
         self.refresher.endRefreshing()
         if SVProgressHUD.isVisible() { SVProgressHUD.dismiss() }
-        
+        tableView.reloadData()
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .currency
-        totalSales.text = numberFormatter.string(from: NSNumber(value:totalSale))
-        totalMerchandise.text = numberFormatter.string(from: NSNumber(value:totalMerch))
-        totalRooms.text = numberFormatter.string(from: NSNumber(value:totalRoom))
+        self.totalLoad.text = numberFormatter.string(from: NSNumber(value:self.total))
     }
     
+    // MARK: - Finish picking date
     @objc func dateChanged() {
         getDateFromPicker()
     }
@@ -176,7 +140,6 @@ class SalesTableViewController: UITableViewController {
         pickDate.text = formatter.string(from: datePicker.date)
     }
     
-    // MARK: - Finish picking date
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         changeContentsAccdgToDate()
         pickDate.resignFirstResponder()
@@ -197,7 +160,30 @@ class SalesTableViewController: UITableViewController {
         currentDay = dateFormatter.string(from: datePicker.date)
         
         SVProgressHUD.show(withStatus: "Loading Sales")
-        loadSales()
+        loadLoads()
+    }
+    
+    @IBAction func deletePressed(_ sender: UIButton) {
+        // 1
+        let thisLoads = loads[sender.tag]["cell"]
+        let thisKey = loads[sender.tag]["id"] as! String
+        let date = loads[sender.tag]["date"] as! String
+        let optionMenu = UIAlertController(title: nil, message: "Are you sure you want to delete \(thisLoads!)?", preferredStyle: .actionSheet)
+        
+        // 2
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { (alert: UIAlertAction!) -> Void in
+            print(date)
+            self.ref.child("houses").child(self.house).child("daily").child("loader").child(date).child(thisKey).setValue(nil)
+            self.loadLoads()
+        })
+        
+        // 4
+        optionMenu.addAction(deleteAction)
+        
+        // 5
+        
+        optionMenu.popoverPresentationController?.sourceView = sender
+        self.present(optionMenu, animated: true, completion: nil)
     }
     
     func dateToTime(date: inout String) -> String {
@@ -210,13 +196,14 @@ class SalesTableViewController: UITableViewController {
     }
 }
 
-// MARK -  SaleDailyCell
-class SaleDailyCell: UITableViewCell {
+// MARK: - LOAD TABLE VIEW CELL
+class LoadDailyCell: UITableViewCell {
     @IBOutlet weak var number: PaddingLabel!
-    @IBOutlet weak var product: PaddingLabel!
+    @IBOutlet weak var phone: PaddingLabel!
+    @IBOutlet weak var amount: PaddingLabel!
     @IBOutlet weak var dateTime: PaddingLabel!
-    @IBOutlet weak var quantity: PaddingLabel!
-    @IBOutlet weak var price: PaddingLabel!
+    @IBOutlet weak var delete: UIButton!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -228,5 +215,6 @@ class SaleDailyCell: UITableViewCell {
         
         // Configure the view for the selected state
     }
-    
+    @IBAction func deletePressed(_ sender: UIButton) {
+    }
 }
