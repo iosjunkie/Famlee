@@ -251,6 +251,7 @@ class ProductsTableViewController: UITableViewController, DropDownMenuDelegate {
     
     func didTapInDropDownMenuBackground(_ menu: DropDownMenu) {
         toolbarMenu.hide()
+        resignFirstResponder()
     }
     
     @objc func addNewItem() {

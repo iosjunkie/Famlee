@@ -9,8 +9,10 @@
 import UIKit
 import Firebase
 import SVProgressHUD
+import DropDownMenuKit
+import ChameleonFramework
 
-class RoomsTableViewController: UITableViewController {
+class RoomsTableViewController: UITableViewController, DropDownMenuDelegate {
     
     var ref: DatabaseReference!
     var house = UserDefaults.standard.string(forKey: "house")!
@@ -24,12 +26,23 @@ class RoomsTableViewController: UITableViewController {
     var newDescription: UITextField?
     var newPrice: UITextField?
     
+    // TextFields
+    let numberAdd = UITextField(frame: CGRect(x: 20, y: 100, width: 300, height: 40))
+    let descAdd = UITextField(frame: CGRect(x: 20, y: 100, width: 300, height: 40))
+    let costAdd = UITextField(frame: CGRect(x: 20, y: 100, width: 300, height: 40))
+    
+    var toolbarMenu: DropDownMenu!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.rowHeight = 55.0
         self.tableView.separatorStyle = .none
         self.tableView.refreshControl = refresher
+        
+        prepareToolbarMenu()
+        toolbarMenu.container = view
+        
         ref = Database.database().reference()
         SVProgressHUD.show(withStatus: "Loading Rooms")
         refresh()
@@ -171,6 +184,116 @@ class RoomsTableViewController: UITableViewController {
             print(error.localizedDescription)
         }
     }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+            // 1
+            let thisDesc = self.rooms[indexPath.row]["description"]
+            let thisKey = self.rooms[indexPath.row]["id"]
+            let optionMenu = UIAlertController(title: "Delete", message: "Are you sure you want to delete \(thisDesc!)?", preferredStyle: .actionSheet)
+            
+            // 2
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { (alert: UIAlertAction!) -> Void in
+                self.ref.child("houses").child(self.house).child("rooms").child(self.rooms[indexPath.row]["id"] as! String).setValue(nil)
+                self.refresh()
+            })
+            
+            // 4
+            optionMenu.addAction(deleteAction)
+            
+            // 5
+            
+            optionMenu.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
+            self.present(optionMenu, animated: true, completion: nil)
+            
+        }
+        return [deleteAction]
+    }
+    
+    func prepareToolbarMenu() {
+        toolbarMenu = DropDownMenu(frame: view.bounds)
+        toolbarMenu.delegate = self
+        
+        
+        numberAdd.placeholder = "Number"
+        numberAdd.keyboardType = .numberPad
+        
+        let numberCell = DropDownMenuCell()
+        numberCell.customView = numberAdd
+        numberCell.imageView!.image = UIImage(named: "hashtag")
+        numberCell.imageView!.tintColor = UIColor.flatBlue()
+        
+        
+        descAdd.placeholder = "Description"
+        
+        let descCell = DropDownMenuCell()
+        descCell.customView = descAdd
+        descCell.imageView!.image = UIImage(named: "text")
+        descCell.imageView!.tintColor = UIColor.flatBlue()
+        
+        
+        costAdd.placeholder = "Cost"
+        costAdd.keyboardType = .numberPad
+        
+        let costCell = DropDownMenuCell()
+        costCell.customView = costAdd
+        costCell.imageView!.image = UIImage(named: "cost")
+        costCell.imageView!.tintColor = UIColor.flatBlue()
+        
+        
+        let buttonCell = DropDownMenuCell()
+        buttonCell.textLabel!.text = "Save Room"
+        buttonCell.textLabel?.textColor = UIColor.flatWhite()
+        buttonCell.textLabel?.textAlignment = .center
+        buttonCell.menuAction = Selector(("addNewRoom"))
+        buttonCell.menuTarget = self
+        buttonCell.backgroundColor = UIColor(hexString: "3379F7")
+        buttonCell.selectionStyle = .none
+        
+        toolbarMenu.menuCells = [numberCell, descCell, costCell, buttonCell]
+        toolbarMenu.direction = .down
+        
+        // For a simple gray overlay in background
+        toolbarMenu.backgroundView = UIView(frame: toolbarMenu.bounds)
+        toolbarMenu.backgroundView!.backgroundColor = UIColor.black
+        toolbarMenu.backgroundAlpha = 0.7
+    }
+    
+    
+    @IBAction func showToolbarMenu() {
+        toolbarMenu.show()
+        numberAdd.becomeFirstResponder()
+    }
+    
+    func didTapInDropDownMenuBackground(_ menu: DropDownMenu) {
+        toolbarMenu.hide()
+        resignFirstResponder()
+    }
+    
+    @objc func addNewRoom() {
+        if numberAdd.text!.isEmpty || descAdd.text!.isEmpty || costAdd.text!.isEmpty {print("unacceptable")} else {
+            let newID = randomString(length: 17)
+            ref.child("houses").child(house).child("rooms").child(newID).setValue([
+                "number": numberAdd.text!,
+                "description": descAdd.text!,
+                "price": costAdd.text!,
+                "guest": "",
+                "synced": false,
+                "occupied": "NO"])
+            numberAdd.text = ""
+            descAdd.text = ""
+            costAdd.text = ""
+            resignFirstResponder()
+            toolbarMenu.hide()
+            refresh()
+        }
+    }
+    
+    func randomString(length: Int) -> String {
+        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        return String((0..<length).map{ _ in letters.randomElement()! })
+    }
+    
 }
 
 // MARK - Cell 
