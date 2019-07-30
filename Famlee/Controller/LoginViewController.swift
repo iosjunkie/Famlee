@@ -13,16 +13,21 @@ import ChameleonFramework
 import SVProgressHUD
 
 class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
-
+    
+    // lazies
+    lazy var ref: DatabaseReference = {
+        return Database.database().reference()
+    }()
+    lazy var houses: [String] = ["Serenity","Cushan"]
+    
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var housePick: UIPickerView!
     @IBOutlet weak var scrollView: UIScrollView!
-    var ref: DatabaseReference!
-    var houses: [String] = ["Serenity","Cushan"]
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        ref = Database.database().reference()
         
         housePick.delegate = self
         housePick.dataSource = self

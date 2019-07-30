@@ -14,22 +14,41 @@ import ChameleonFramework
 
 class RoomsTableViewController: UITableViewController, DropDownMenuDelegate {
     
-    var ref: DatabaseReference!
-    var house = UserDefaults.standard.string(forKey: "house")!
-    var rooms = [NSDictionary]()
+    // lazies
+    lazy var ref: DatabaseReference = {
+        return Database.database().reference()
+    }()
+    lazy var house: String = {
+        return UserDefaults.standard.string(forKey: "house")!
+    }()
     lazy var refresher: UIRefreshControl = {
         let refresherControl = UIRefreshControl()
         refresherControl.tintColor = UIColor.black
         refresherControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         return refresherControl
     }()
+    // TextFields
+    lazy var numberAdd:UITextField = {
+        let numberAdd = UITextField(frame: CGRect(x: 20, y: 100, width: 300, height: 40))
+        numberAdd.placeholder = "Number"
+        numberAdd.keyboardType = .numberPad
+        return numberAdd
+    }()
+    lazy var descAdd:UITextField = {
+        let descAdd = UITextField(frame: CGRect(x: 20, y: 100, width: 300, height: 40))
+        descAdd.placeholder = "Description"
+        return descAdd
+    }()
+    lazy var costAdd:UITextField = {
+        let costAdd = UITextField(frame: CGRect(x: 20, y: 100, width: 300, height: 40))
+        costAdd.placeholder = "Cost"
+        costAdd.keyboardType = .numberPad
+        return costAdd
+    }()
+    
+    var rooms = [NSDictionary]()
     var newDescription: UITextField?
     var newPrice: UITextField?
-    
-    // TextFields
-    let numberAdd = UITextField(frame: CGRect(x: 20, y: 100, width: 300, height: 40))
-    let descAdd = UITextField(frame: CGRect(x: 20, y: 100, width: 300, height: 40))
-    let costAdd = UITextField(frame: CGRect(x: 20, y: 100, width: 300, height: 40))
     
     var toolbarMenu: DropDownMenu!
     
@@ -43,7 +62,6 @@ class RoomsTableViewController: UITableViewController, DropDownMenuDelegate {
         prepareToolbarMenu()
         toolbarMenu.container = view
         
-        ref = Database.database().reference()
         SVProgressHUD.show(withStatus: "Loading Rooms")
         refresh()
     }
@@ -214,26 +232,15 @@ class RoomsTableViewController: UITableViewController, DropDownMenuDelegate {
         toolbarMenu = DropDownMenu(frame: view.bounds)
         toolbarMenu.delegate = self
         
-        
-        numberAdd.placeholder = "Number"
-        numberAdd.keyboardType = .numberPad
-        
         let numberCell = DropDownMenuCell()
         numberCell.customView = numberAdd
         numberCell.imageView!.image = UIImage(named: "hashtag")
         numberCell.imageView!.tintColor = UIColor.flatBlue()
         
-        
-        descAdd.placeholder = "Description"
-        
         let descCell = DropDownMenuCell()
         descCell.customView = descAdd
         descCell.imageView!.image = UIImage(named: "text")
         descCell.imageView!.tintColor = UIColor.flatBlue()
-        
-        
-        costAdd.placeholder = "Cost"
-        costAdd.keyboardType = .numberPad
         
         let costCell = DropDownMenuCell()
         costCell.customView = costAdd

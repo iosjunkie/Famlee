@@ -10,14 +10,19 @@ import UIKit
 import Firebase
 
 class SettingsTableViewController: UITableViewController {
-    let house: String! = UserDefaults.standard.string(forKey: "house")
+    
+    // lazies
+    lazy var house: String = {
+        return UserDefaults.standard.string(forKey: "house")!
+    }()
+    lazy var ref: DatabaseReference = {
+        return Database.database().reference()
+    }()
+    
     var bedPrice: UITextField?
-    var ref: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        ref = Database.database().reference()
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

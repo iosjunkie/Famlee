@@ -12,21 +12,31 @@ import SVProgressHUD
 import MonthYearPicker
 
 class RemittanceTableViewController: UITableViewController {
-    var ref: DatabaseReference!
-    var remittances = [NSDictionary]()
-    var currentYear = ""
-    var currentMonth = 0
+    
+    // Lazies
+    lazy var ref: DatabaseReference = {
+        return Database.database().reference()
+    }()
+    lazy var house: String = {
+        return UserDefaults.standard.string(forKey: "house")!
+    }()
     lazy var refresher: UIRefreshControl = {
         let refresherControl = UIRefreshControl()
         refresherControl.tintColor = UIColor.black
         refresherControl.addTarget(self, action: #selector(loadRemittances), for: .valueChanged)
         return refresherControl
     }()
-    let house: String! = UserDefaults.standard.string(forKey: "house")
+    lazy var datePicker: MonthYearPickerView = {
+        return MonthYearPickerView(frame: CGRect(x: 0, y: 0,  width: self.view.frame.size.width, height: 250))
+    }()
+    
+    var remittances = [NSDictionary]()
+    var currentYear = ""
+    var currentMonth = 0
+    var total : Float = 0
+    
     @IBOutlet weak var pickMonthAndYear: UITextField!
     @IBOutlet weak var totalRemittances: UILabel!
-    var total : Float = 0
-    var datePicker = MonthYearPickerView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,15 +44,17 @@ class RemittanceTableViewController: UITableViewController {
         self.tableView.rowHeight = 55.0
         self.tableView.separatorStyle = .none
         self.tableView.refreshControl = refresher
-        datePicker = MonthYearPickerView(frame: CGRect(x: 0, y: 0,  width: self.view.frame.size.width, height: 250))
         
         //init toolbar
-        let toolbar:UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: self.view.frame.size.width, height: 30))
-        //create left side empty space so that done button set on right side
-        let flexSpace = UIBarButtonItem(barButtonSystemItem:    .flexibleSpace, target: nil, action: nil)
-        let doneBtn: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonAction))
-        toolbar.setItems([flexSpace, doneBtn], animated: false)
-        toolbar.sizeToFit()
+        let toolbar:UIToolbar = {
+            let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: self.view.frame.size.width, height: 30))
+            //create left side empty space so that done button set on right side
+            let flexSpace = UIBarButtonItem(barButtonSystemItem:    .flexibleSpace, target: nil, action: nil)
+            let doneBtn: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonAction))
+            toolbar.setItems([flexSpace, doneBtn], animated: false)
+            toolbar.sizeToFit()
+            return toolbar
+        }()
         
         pickMonthAndYear.inputView = datePicker
         pickMonthAndYear.inputAccessoryView = toolbar
@@ -58,9 +70,6 @@ class RemittanceTableViewController: UITableViewController {
         pickMonthAndYear.text = dateFormatter.string(from: date)
         
         SVProgressHUD.show(withStatus: "Loading Remittances")
-        
-        ref = Database.database().reference()
-        SVProgressHUD.show(withStatus: "Loading Loads")
         loadRemittances()
     }
     

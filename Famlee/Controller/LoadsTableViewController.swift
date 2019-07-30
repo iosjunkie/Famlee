@@ -12,18 +12,25 @@ import SVProgressHUD
 
 class LoadsTableViewController: UITableViewController {
 
-    var ref: DatabaseReference!
-    var loads = [NSDictionary]()
-    var currentYear = ""
-    var currentMonth = 0
-    var currentDay = ""
+    // lazies
+    lazy var ref: DatabaseReference = {
+        return Database.database().reference()
+    }()
     lazy var refresher: UIRefreshControl = {
         let refresherControl = UIRefreshControl()
         refresherControl.tintColor = UIColor.black
         refresherControl.addTarget(self, action: #selector(loadLoads), for: .valueChanged)
         return refresherControl
     }()
-    let house: String! = UserDefaults.standard.string(forKey: "house")
+    lazy var house: String = {
+        return UserDefaults.standard.string(forKey: "house")!
+    }()
+    
+    var loads = [NSDictionary]()
+    var currentYear = ""
+    var currentMonth = 0
+    var currentDay = ""
+    
     @IBOutlet weak var totalLoad: UILabel!
     @IBOutlet weak var pickDate: UITextField!
     var total : Float = 0
@@ -37,12 +44,15 @@ class LoadsTableViewController: UITableViewController {
         self.tableView.refreshControl = refresher
         
         //init toolbar
-        let toolbar:UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: self.view.frame.size.width, height: 30))
-        //create left side empty space so that done button set on right side
-        let flexSpace = UIBarButtonItem(barButtonSystemItem:    .flexibleSpace, target: nil, action: nil)
-        let doneBtn: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonAction))
-        toolbar.setItems([flexSpace, doneBtn], animated: false)
-        toolbar.sizeToFit()
+        let toolbar:UIToolbar =  {
+            let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: self.view.frame.size.width, height: 30))
+            //create left side empty space so that done button set on right side
+            let flexSpace = UIBarButtonItem(barButtonSystemItem:    .flexibleSpace, target: nil, action: nil)
+            let doneBtn: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonAction))
+            toolbar.setItems([flexSpace, doneBtn], animated: false)
+            toolbar.sizeToFit()
+            return toolbar
+        }()
         
         pickDate.inputView = datePicker
         pickDate.inputAccessoryView = toolbar
@@ -60,7 +70,6 @@ class LoadsTableViewController: UITableViewController {
         dateFormatter.dateFormat = "MMMM d, yyyy"
         pickDate.text = dateFormatter.string(from: date)
         
-        ref = Database.database().reference()
         SVProgressHUD.show(withStatus: "Loading Loads")
         loadLoads()
     }

@@ -14,26 +14,48 @@ import ChameleonFramework
 
 class ProductsTableViewController: UITableViewController, DropDownMenuDelegate {
     
-    var ref: DatabaseReference!
-    var products = [NSDictionary]()
-    var currentYear = ""
-    var currentMonth = 0
-    var currentDay = ""
+    // lazier
+    lazy var ref: DatabaseReference = {
+        return Database.database().reference()
+    }()
     lazy var refresher: UIRefreshControl = {
         let refresherControl = UIRefreshControl()
         refresherControl.tintColor = UIColor.black
         refresherControl.addTarget(self, action: #selector(loadProducts), for: .valueChanged)
         return refresherControl
     }()
-    let house: String! = UserDefaults.standard.string(forKey: "house")
-    
+    lazy var house: String = {
+        return UserDefaults.standard.string(forKey: "house")!
+    }()
+    lazy var newQuantity: UITextField = {
+        let newQuantity = UITextField()
+        newQuantity.keyboardType = .numberPad
+        return newQuantity
+    }()
     // TextFields
-    let itemAdd = UITextField(frame: CGRect(x: 20, y: 100, width: 300, height: 40))
-    let quantityAdd = UITextField(frame: CGRect(x: 20, y: 100, width: 300, height: 40))
-    let costAdd = UITextField(frame: CGRect(x: 20, y: 100, width: 300, height: 40))
+    lazy var itemAdd:UITextField = {
+        let itemAdd = UITextField(frame: CGRect(x: 20, y: 100, width: 300, height: 40))
+        itemAdd.placeholder = "Item"
+        return itemAdd
+    }()
+    lazy var quantityAdd:UITextField = {
+        let quantityAdd = UITextField(frame: CGRect(x: 20, y: 100, width: 300, height: 40))
+        quantityAdd.placeholder = "Quantity"
+        quantityAdd.keyboardType = .numberPad
+        return quantityAdd
+    }()
+    lazy var costAdd:UITextField = {
+        let costAdd = UITextField(frame: CGRect(x: 20, y: 100, width: 300, height: 40))
+        costAdd.placeholder = "Cost"
+        costAdd.keyboardType = .numberPad
+        return costAdd
+    }()
     
+    var products = [NSDictionary]()
+    var currentYear = ""
+    var currentMonth = 0
+    var currentDay = ""
     var toolbarMenu: DropDownMenu!
-    var newQuantity: UITextField?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +72,6 @@ class ProductsTableViewController: UITableViewController, DropDownMenuDelegate {
         
         SVProgressHUD.show(withStatus: "Loading Products")
         
-        ref = Database.database().reference()
         loadProducts()
     }
     
@@ -122,7 +143,7 @@ class ProductsTableViewController: UITableViewController, DropDownMenuDelegate {
         // 2
         let saveAction = UIAlertAction(title: "Save", style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.ref.child("houses").child(self.house).child("items").child(thisKey as! String).updateChildValues([
-                "quantity": self.newQuantity!.text!,
+                "quantity": self.newQuantity.text!,
                 "tentative": "0",
                 "synced": false,
                 "syncedAdmin": false
@@ -133,8 +154,7 @@ class ProductsTableViewController: UITableViewController, DropDownMenuDelegate {
         
         // 4
         optionMenu.addTextField(configurationHandler: newQuantityTextField)
-        newQuantity?.text = String(describing: products[row]["quantity"] ?? "0")
-        newQuantity?.keyboardType = .numberPad
+        newQuantity.text = String(describing: products[row]["quantity"] ?? "0")
         optionMenu.addAction(saveAction)
         optionMenu.addAction(cancelAction)
         
@@ -197,27 +217,16 @@ class ProductsTableViewController: UITableViewController, DropDownMenuDelegate {
     func prepareToolbarMenu() {
         toolbarMenu = DropDownMenu(frame: view.bounds)
         toolbarMenu.delegate = self
-        
-        
-        itemAdd.placeholder = "Item"
-        
+
         let itemCell = DropDownMenuCell()
         itemCell.customView = itemAdd
         itemCell.imageView!.image = UIImage(named: "item")
         itemCell.imageView!.tintColor = UIColor.flatBlue()
         
-        
-        quantityAdd.placeholder = "Quantity"
-        quantityAdd.keyboardType = .numberPad
-        
         let quantityCell = DropDownMenuCell()
         quantityCell.customView = quantityAdd
         quantityCell.imageView!.image = UIImage(named: "quantity")
         quantityCell.imageView!.tintColor = UIColor.flatBlue()
-        
-        
-        costAdd.placeholder = "Cost"
-        costAdd.keyboardType = .numberPad
         
         let costCell = DropDownMenuCell()
         costCell.customView = costAdd

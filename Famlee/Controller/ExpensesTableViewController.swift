@@ -12,18 +12,25 @@ import SVProgressHUD
 
 class ExpensesTableViewController: UITableViewController {
     
-    var ref: DatabaseReference!
-    var expenses = [NSDictionary]()
-    var currentYear = ""
-    var currentMonth = 0
-    var currentDay = ""
+    // lazies
+    lazy var ref: DatabaseReference = {
+        return Database.database().reference()
+    }()
     lazy var refresher: UIRefreshControl = {
         let refresherControl = UIRefreshControl()
         refresherControl.tintColor = UIColor.black
         refresherControl.addTarget(self, action: #selector(loadExpenses), for: .valueChanged)
         return refresherControl
     }()
-    let house: String! = UserDefaults.standard.string(forKey: "house")
+    lazy var house: String = {
+        return UserDefaults.standard.string(forKey: "house")!
+    }()
+    
+    var expenses = [NSDictionary]()
+    var currentYear = ""
+    var currentMonth = 0
+    var currentDay = ""
+    
     @IBOutlet weak var pickDate: UITextField!
     @IBOutlet weak var totalExpenses: UILabel!
     var total : Float = 0
@@ -60,9 +67,6 @@ class ExpensesTableViewController: UITableViewController {
         dateFormatter.dateFormat = "MMMM d, yyyy"
         pickDate.text = dateFormatter.string(from: date)
         
-        SVProgressHUD.show(withStatus: "Loading Expenses")
-        
-        ref = Database.database().reference()
         SVProgressHUD.show(withStatus: "Loading Expenses")
         loadExpenses()
     }

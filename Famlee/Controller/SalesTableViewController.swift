@@ -11,18 +11,26 @@ import Firebase
 import SVProgressHUD
 
 class SalesTableViewController: UITableViewController {
-    var ref: DatabaseReference!
-    var sales = [NSDictionary]()
-    var currentYear = ""
-    var currentMonth = 0
-    var currentDay = ""
+    
+    // lazies
+    lazy var ref: DatabaseReference = {
+        return Database.database().reference()
+    }()
     lazy var refresher: UIRefreshControl = {
         let refresherControl = UIRefreshControl()
         refresherControl.tintColor = UIColor.black
         refresherControl.addTarget(self, action: #selector(loadSales), for: .valueChanged)
         return refresherControl
     }()
-    let house: String! = UserDefaults.standard.string(forKey: "house")
+    lazy var house: String = {
+        return UserDefaults.standard.string(forKey: "house")!
+    }()
+    
+    var sales = [NSDictionary]()
+    var currentYear = ""
+    var currentMonth = 0
+    var currentDay = ""
+    
     @IBOutlet weak var pickDate: UITextField!
     let datePicker = UIDatePicker()
     
@@ -65,7 +73,6 @@ class SalesTableViewController: UITableViewController {
         dateFormatter.dateFormat = "MMMM d, yyyy"
         pickDate.text = dateFormatter.string(from: datePicker.date)
         
-        ref = Database.database().reference()
         SVProgressHUD.show(withStatus: "Loading Sales")
         loadSales()
     }
