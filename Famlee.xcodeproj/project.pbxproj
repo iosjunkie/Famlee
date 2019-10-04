@@ -11,6 +11,17 @@
 		E218EDE722E9C03400366E74 /* RemittanceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E218EDE622E9C03400366E74 /* RemittanceTableViewController.swift */; };
 		E21BD89D22E80FFD00D90417 /* ProductsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21BD89C22E80FFD00D90417 /* ProductsTableViewController.swift */; };
 		E21FDFBD22E72DD800E2AF9C /* LoadsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21FDFBC22E72DD800E2AF9C /* LoadsTableViewController.swift */; };
+		E2204F7623428F0900373782 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E2204F7523428F0900373782 /* GoogleService-Info.plist */; };
+		E22625CA233FDB9C0051C92E /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22625C9233FDB9C0051C92E /* PaddingLabel.swift */; };
+		E22625CD233FDCA60051C92E /* RoomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22625CC233FDCA60051C92E /* RoomCell.swift */; };
+		E22625CF233FDCD20051C92E /* SaleDailyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22625CE233FDCD20051C92E /* SaleDailyCell.swift */; };
+		E22625D1233FDCF90051C92E /* ExpenseDailyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22625D0233FDCF90051C92E /* ExpenseDailyCell.swift */; };
+		E22625D3233FDD1B0051C92E /* LoadDailyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22625D2233FDD1B0051C92E /* LoadDailyCell.swift */; };
+		E22625D5233FDD380051C92E /* ProductDailyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22625D4233FDD380051C92E /* ProductDailyCell.swift */; };
+		E22625D7233FDD5C0051C92E /* RemittanceDailyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22625D6233FDD5C0051C92E /* RemittanceDailyCell.swift */; };
+		E22625DA233FDEAB0051C92E /* DropDownField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22625D9233FDEAB0051C92E /* DropDownField.swift */; };
+		E22625DC233FE1FB0051C92E /* DropDownMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22625DB233FE1FB0051C92E /* DropDownMenuCell.swift */; };
+		E22625DE233FE84A0051C92E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22625DD233FE84A0051C92E /* Constants.swift */; };
 		E2371E7B22E4478F002A35EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2371E7A22E4478F002A35EF /* Main.storyboard */; };
 		E2371E7D22E45DAD002A35EF /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2371E7C22E45DAD002A35EF /* SettingsTableViewController.swift */; };
 		E2371E7F22E471E8002A35EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2371E7E22E471E8002A35EF /* Assets.xcassets */; };
@@ -20,7 +31,6 @@
 		E2B102AE22E5948200027D83 /* ExpensesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B102AD22E5948200027D83 /* ExpensesTableViewController.swift */; };
 		E2DF634022E422530040CA59 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DF633F22E422530040CA59 /* AppDelegate.swift */; };
 		E2DF634C22E422550040CA59 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2DF634A22E422550040CA59 /* LaunchScreen.storyboard */; };
-		E2DF635422E424740040CA59 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E2DF635322E424740040CA59 /* GoogleService-Info.plist */; };
 		E2DF635622E426BC0040CA59 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DF635522E426BC0040CA59 /* LoginViewController.swift */; };
 		E2DF635C22E431A50040CA59 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DF635B22E431A50040CA59 /* LoginTextField.swift */; };
 /* End PBXBuildFile section */
@@ -32,6 +42,18 @@
 		E218EDE622E9C03400366E74 /* RemittanceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemittanceTableViewController.swift; sourceTree = "<group>"; };
 		E21BD89C22E80FFD00D90417 /* ProductsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsTableViewController.swift; sourceTree = "<group>"; };
 		E21FDFBC22E72DD800E2AF9C /* LoadsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadsTableViewController.swift; sourceTree = "<group>"; };
+		E2204F722342885700373782 /* Famlee.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Famlee.entitlements; sourceTree = "<group>"; };
+		E2204F7523428F0900373782 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E22625C9233FDB9C0051C92E /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
+		E22625CC233FDCA60051C92E /* RoomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCell.swift; sourceTree = "<group>"; };
+		E22625CE233FDCD20051C92E /* SaleDailyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaleDailyCell.swift; sourceTree = "<group>"; };
+		E22625D0233FDCF90051C92E /* ExpenseDailyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDailyCell.swift; sourceTree = "<group>"; };
+		E22625D2233FDD1B0051C92E /* LoadDailyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadDailyCell.swift; sourceTree = "<group>"; };
+		E22625D4233FDD380051C92E /* ProductDailyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDailyCell.swift; sourceTree = "<group>"; };
+		E22625D6233FDD5C0051C92E /* RemittanceDailyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemittanceDailyCell.swift; sourceTree = "<group>"; };
+		E22625D9233FDEAB0051C92E /* DropDownField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownField.swift; sourceTree = "<group>"; };
+		E22625DB233FE1FB0051C92E /* DropDownMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownMenuCell.swift; sourceTree = "<group>"; };
+		E22625DD233FE84A0051C92E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E2371E7A22E4478F002A35EF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		E2371E7C22E45DAD002A35EF /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		E2371E7E22E471E8002A35EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -43,7 +65,6 @@
 		E2DF633F22E422530040CA59 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E2DF634B22E422550040CA59 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E2DF634D22E422550040CA59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E2DF635322E424740040CA59 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		E2DF635522E426BC0040CA59 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E2DF635B22E431A50040CA59 /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -77,6 +98,29 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E22625CB233FDC470051C92E /* TableCell */ = {
+			isa = PBXGroup;
+			children = (
+				E22625CC233FDCA60051C92E /* RoomCell.swift */,
+				E22625CE233FDCD20051C92E /* SaleDailyCell.swift */,
+				E22625D0233FDCF90051C92E /* ExpenseDailyCell.swift */,
+				E22625D2233FDD1B0051C92E /* LoadDailyCell.swift */,
+				E22625D4233FDD380051C92E /* ProductDailyCell.swift */,
+				E22625D6233FDD5C0051C92E /* RemittanceDailyCell.swift */,
+			);
+			path = TableCell;
+			sourceTree = "<group>";
+		};
+		E22625D8233FDE940051C92E /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				E22625D9233FDEAB0051C92E /* DropDownField.swift */,
+				E22625DB233FE1FB0051C92E /* DropDownMenuCell.swift */,
+				E22625DD233FE84A0051C92E /* Constants.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		E2B102AA22E56C6500027D83 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +150,9 @@
 		E2DF633E22E422530040CA59 /* Famlee */ = {
 			isa = PBXGroup;
 			children = (
+				E2204F722342885700373782 /* Famlee.entitlements */,
+				E22625D8233FDE940051C92E /* Helpers */,
+				E22625CB233FDC470051C92E /* TableCell */,
 				E2B102AA22E56C6500027D83 /* Fonts */,
 				E2371E7E22E471E8002A35EF /* Assets.xcassets */,
 				E2DF633F22E422530040CA59 /* AppDelegate.swift */,
@@ -113,7 +160,7 @@
 				E2DF635822E426DF0040CA59 /* View */,
 				E2DF634A22E422550040CA59 /* LaunchScreen.storyboard */,
 				E2DF634D22E422550040CA59 /* Info.plist */,
-				E2DF635322E424740040CA59 /* GoogleService-Info.plist */,
+				E2204F7523428F0900373782 /* GoogleService-Info.plist */,
 			);
 			path = Famlee;
 			sourceTree = "<group>";
@@ -138,6 +185,7 @@
 			children = (
 				E2DF635B22E431A50040CA59 /* LoginTextField.swift */,
 				E2371E7A22E4478F002A35EF /* Main.storyboard */,
+				E22625C9233FDB9C0051C92E /* PaddingLabel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -204,7 +252,7 @@
 			files = (
 				E2B102AC22E56D2800027D83 /* JuliusSansOne-Regular.ttf in Resources */,
 				E2DF634C22E422550040CA59 /* LaunchScreen.storyboard in Resources */,
-				E2DF635422E424740040CA59 /* GoogleService-Info.plist in Resources */,
+				E2204F7623428F0900373782 /* GoogleService-Info.plist in Resources */,
 				E2371E7F22E471E8002A35EF /* Assets.xcassets in Resources */,
 				E2371E7B22E4478F002A35EF /* Main.storyboard in Resources */,
 			);
@@ -259,16 +307,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E22625D1233FDCF90051C92E /* ExpenseDailyCell.swift in Sources */,
+				E22625CF233FDCD20051C92E /* SaleDailyCell.swift in Sources */,
 				E2DF635622E426BC0040CA59 /* LoginViewController.swift in Sources */,
 				E2371E8522E496FD002A35EF /* RoomsTableViewController.swift in Sources */,
+				E22625D7233FDD5C0051C92E /* RemittanceDailyCell.swift in Sources */,
+				E22625DA233FDEAB0051C92E /* DropDownField.swift in Sources */,
 				E2371E8322E47B5F002A35EF /* SalesTableViewController.swift in Sources */,
+				E22625DC233FE1FB0051C92E /* DropDownMenuCell.swift in Sources */,
+				E22625D5233FDD380051C92E /* ProductDailyCell.swift in Sources */,
 				E218EDE722E9C03400366E74 /* RemittanceTableViewController.swift in Sources */,
 				E21FDFBD22E72DD800E2AF9C /* LoadsTableViewController.swift in Sources */,
 				E21BD89D22E80FFD00D90417 /* ProductsTableViewController.swift in Sources */,
 				E2B102AE22E5948200027D83 /* ExpensesTableViewController.swift in Sources */,
 				E2371E7D22E45DAD002A35EF /* SettingsTableViewController.swift in Sources */,
 				E2DF634022E422530040CA59 /* AppDelegate.swift in Sources */,
+				E22625DE233FE84A0051C92E /* Constants.swift in Sources */,
+				E22625D3233FDD1B0051C92E /* LoadDailyCell.swift in Sources */,
 				E2DF635C22E431A50040CA59 /* LoginTextField.swift in Sources */,
+				E22625CD233FDCA60051C92E /* RoomCell.swift in Sources */,
+				E22625CA233FDB9C0051C92E /* PaddingLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,15 +465,19 @@
 			baseConfigurationReference = 426D532EC31E3C606CB0112B /* Pods-Famlee.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ANW63NCRG2;
+				CODE_SIGN_ENTITLEMENTS = Famlee/Famlee.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = ZPFY37265E;
 				INFOPLIST_FILE = Famlee/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chinilaw.Famlee;
+				PRODUCT_BUNDLE_IDENTIFIER = com.iosjunkie.Famleee;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Famleee Firebase Dev App";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -426,15 +488,19 @@
 			baseConfigurationReference = B65976E2C97D25E449204505 /* Pods-Famlee.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ANW63NCRG2;
+				CODE_SIGN_ENTITLEMENTS = Famlee/Famlee.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = ZPFY37265E;
 				INFOPLIST_FILE = Famlee/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chinilaw.Famlee;
+				PRODUCT_BUNDLE_IDENTIFIER = com.iosjunkie.Famleee;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Famleee Firebase Dev App";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};

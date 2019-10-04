@@ -84,7 +84,7 @@ class LoadsTableViewController: UITableViewController {
         numberFormatter.numberStyle = .currency
         
         var createdAtString = String(describing: loads[indexPath.row]["createdAt"]!)
-        var createdAt = dateToTime(date: &createdAtString)
+        let createdAt = Constants.sharedInstance.dateToTime(date: &createdAtString)
         let cell = tableView.dequeueReusableCell(withIdentifier: "loadDailyCell", for: indexPath) as! LoadDailyCell
         cell.number.text = String(describing: loads[indexPath.row]["number"]!)
         cell.phone.text = String(describing: loads[indexPath.row]["cell"]!)
@@ -140,18 +140,12 @@ class LoadsTableViewController: UITableViewController {
     
     // MARK: - Finish picking date
     @objc func dateChanged() {
-        getDateFromPicker()
-    }
-    
-    func getDateFromPicker() {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM d, yyyy"
-        pickDate.text = formatter.string(from: datePicker.date)
+        Constants.sharedInstance.getDateFromPicker(textF: pickDate, picker: datePicker)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         changeContentsAccdgToDate()
-        pickDate.resignFirstResponder()
+        view.endEditing(true)
     }
     
     @objc func doneButtonAction() {
@@ -194,36 +188,5 @@ class LoadsTableViewController: UITableViewController {
         optionMenu.popoverPresentationController?.sourceView = sender
         self.present(optionMenu, animated: true, completion: nil)
     }
-    
-    func dateToTime(date: inout String) -> String {
-        date.removeSubrange(date.range(of: "GMT")!.lowerBound ..< date.endIndex)
-        let dateFormatterGet = DateFormatter()
-        dateFormatterGet.dateFormat = "E MMM d yyyy HH:mm:ss"
-        let formattedDate = dateFormatterGet.date(from: date)
-        dateFormatterGet.dateFormat = "hh:mm a"
-        return dateFormatterGet.string(from: formattedDate!)
-    }
 }
 
-// MARK: - LOAD TABLE VIEW CELL
-class LoadDailyCell: UITableViewCell {
-    @IBOutlet weak var number: PaddingLabel!
-    @IBOutlet weak var phone: PaddingLabel!
-    @IBOutlet weak var amount: PaddingLabel!
-    @IBOutlet weak var dateTime: PaddingLabel!
-    @IBOutlet weak var delete: UIButton!
-    
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
-    }
-    @IBAction func deletePressed(_ sender: UIButton) {
-    }
-}

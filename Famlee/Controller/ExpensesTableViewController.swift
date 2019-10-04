@@ -80,7 +80,7 @@ class ExpensesTableViewController: UITableViewController {
         numberFormatter.numberStyle = .currency
         
         var createdAtString = String(describing: expenses[indexPath.row]["createdAt"]!)
-        let createdAt = dateToTime(date: &createdAtString)
+        let createdAt = Constants.sharedInstance.dateToTime(date: &createdAtString)
         let cell = tableView.dequeueReusableCell(withIdentifier: "expenseDailyCell", for: indexPath) as! ExpenseDailyCell
         cell.number.text = String(describing: expenses[indexPath.row]["number"]!)
         cell.desc.text = String(describing: expenses[indexPath.row]["description"]!)
@@ -134,18 +134,12 @@ class ExpensesTableViewController: UITableViewController {
     
     // MARK: - Finish picking date
     @objc func dateChanged() {
-        getDateFromPicker()
-    }
-    
-    func getDateFromPicker() {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM d, yyyy"
-        pickDate.text = formatter.string(from: datePicker.date)
+        Constants.sharedInstance.getDateFromPicker(textF: pickDate, picker: datePicker)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         changeContentsAccdgToDate()
-        pickDate.resignFirstResponder()
+        view.endEditing(true)
     }
     
     @objc func doneButtonAction() {
@@ -189,34 +183,5 @@ class ExpensesTableViewController: UITableViewController {
         optionMenu.popoverPresentationController?.sourceView = sender
         self.present(optionMenu, animated: true, completion: nil)
     }
-    
-    func dateToTime(date: inout String) -> String {
-        date.removeSubrange(date.range(of: "GMT")!.lowerBound ..< date.endIndex)
-        let dateFormatterGet = DateFormatter()
-        dateFormatterGet.dateFormat = "E MMM d yyyy HH:mm:ss"
-        let formattedDate = dateFormatterGet.date(from: date)
-        dateFormatterGet.dateFormat = "hh:mm a"
-        return dateFormatterGet.string(from: formattedDate!)
-    }
 }
 
-// MARK -  ExpenseDailyCell
-class ExpenseDailyCell: UITableViewCell {
-    @IBOutlet weak var number: PaddingLabel!
-    @IBOutlet weak var desc: PaddingLabel!
-    @IBOutlet weak var price: PaddingLabel!
-    @IBOutlet weak var dateTime: PaddingLabel!
-    @IBOutlet weak var delete: UIButton!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
-    }
-    
-}

@@ -27,29 +27,18 @@ class ProductsTableViewController: UITableViewController, DropDownMenuDelegate {
     lazy var house: String = {
         return UserDefaults.standard.string(forKey: "house")!
     }()
+    lazy var newPrice: UITextField = {
+        let newPrice = UITextField()
+        return newPrice
+    }()
     lazy var newQuantity: UITextField = {
         let newQuantity = UITextField()
-        newQuantity.keyboardType = .numberPad
         return newQuantity
     }()
     // TextFields
-    lazy var itemAdd:UITextField = {
-        let itemAdd = UITextField(frame: CGRect(x: 20, y: 100, width: 300, height: 40))
-        itemAdd.placeholder = "Item"
-        return itemAdd
-    }()
-    lazy var quantityAdd:UITextField = {
-        let quantityAdd = UITextField(frame: CGRect(x: 20, y: 100, width: 300, height: 40))
-        quantityAdd.placeholder = "Quantity"
-        quantityAdd.keyboardType = .numberPad
-        return quantityAdd
-    }()
-    lazy var costAdd:UITextField = {
-        let costAdd = UITextField(frame: CGRect(x: 20, y: 100, width: 300, height: 40))
-        costAdd.placeholder = "Cost"
-        costAdd.keyboardType = .numberPad
-        return costAdd
-    }()
+    var itemAdd:DropDownField?
+    var quantityAdd:DropDownField?
+    var costAdd:DropDownField?
     
     var products = [NSDictionary]()
     var currentYear = ""
@@ -70,13 +59,14 @@ class ProductsTableViewController: UITableViewController, DropDownMenuDelegate {
         
         //
         
-        SVProgressHUD.show(withStatus: "Loading Products")
-        
-        loadProducts()
-    }
+            }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        SVProgressHUD.show(withStatus: "Loading Products")
+        loadProducts()
+
     }
 
     // MARK: - Table view data source
@@ -107,6 +97,10 @@ class ProductsTableViewController: UITableViewController, DropDownMenuDelegate {
         cell.approve.tag = indexPath.row
         cell.delete.tag = indexPath.row
         
+        cell.price.onClick = {
+            self.pricePressed(row: indexPath.row, sender: cell.price)
+        }
+        
         cell.quantity.onClick = {
             self.quantityPressed(row: indexPath.row, sender: cell.quantity)
         }
@@ -121,6 +115,7 @@ class ProductsTableViewController: UITableViewController, DropDownMenuDelegate {
         
         // 2
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { (alert: UIAlertAction!) -> Void in
+            self.ref.child("houses").child(self.house).child("remove").child("items").child(thisKey as! String).setValue(thisKey as! String)
             self.ref.child("houses").child(self.house).child("items").child(thisKey as! String).setValue(nil)
             self.loadProducts()
         })
@@ -131,6 +126,36 @@ class ProductsTableViewController: UITableViewController, DropDownMenuDelegate {
         // 5
         
         optionMenu.popoverPresentationController?.sourceView = sender
+        self.present(optionMenu, animated: true, completion: nil)
+    }
+    
+    func pricePressed(row: Int, sender: PaddingLabel) {
+        // 1
+        let thisProduct = products[row]["product"]
+        let thisKey = products[row]["id"]
+        let optionMenu = UIAlertController(title: "Edit", message: "Are you sure you want to change the price of \(thisProduct!)?", preferredStyle: .alert)
+        
+        // 2
+        let saveAction = UIAlertAction(title: "Save", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            self.ref.child("houses").child(self.house).child("items").child(thisKey as! String).updateChildValues([
+                "price": self.newPrice.text!,
+                "tentative": "0",
+                "synced": false,
+                "syncedAdmin": false
+                ])
+            self.loadProducts()
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        // 4
+        optionMenu.addTextField(configurationHandler: newPriceTextField)
+        newPrice.text = String(describing: products[row]["price"] ?? "0")
+        newPrice.keyboardType = .numberPad
+        optionMenu.addAction(saveAction)
+        optionMenu.addAction(cancelAction)
+        
+        // 5
+        
         self.present(optionMenu, animated: true, completion: nil)
     }
     
@@ -155,12 +180,17 @@ class ProductsTableViewController: UITableViewController, DropDownMenuDelegate {
         // 4
         optionMenu.addTextField(configurationHandler: newQuantityTextField)
         newQuantity.text = String(describing: products[row]["quantity"] ?? "0")
+        newQuantity.keyboardType = .numberPad
         optionMenu.addAction(saveAction)
         optionMenu.addAction(cancelAction)
         
         // 5
         
         self.present(optionMenu, animated: true, completion: nil)
+    }
+    
+    func newPriceTextField(textField: UITextField) {
+        newPrice = textField
     }
     
     func newQuantityTextField(textField: UITextField) {
@@ -192,8 +222,8 @@ class ProductsTableViewController: UITableViewController, DropDownMenuDelegate {
         }
     }
 
-    @IBAction func sortBy(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
+    @IBAction func sortBy(_ sender: UIButton) {
+        switch sender.tag {
         case 0:
             self.products = self.products.sorted(by: {$1["product"] as! String > $0["product"] as! String})
             self.tableView.reloadData()
@@ -206,9 +236,6 @@ class ProductsTableViewController: UITableViewController, DropDownMenuDelegate {
         case 3:
             self.products = self.products.sorted(by: {($0["tentative"] as? Int) ?? 0 > ($1["tentative"] as? Int) ?? 0})
             self.tableView.reloadData()
-        case 4:
-            self.products = self.products.sorted(by: {($0["tentative"] as? Int) ?? 0 > ($1["tentative"] as? Int) ?? 0})
-            self.tableView.reloadData()
         default:
             return
         }
@@ -218,21 +245,9 @@ class ProductsTableViewController: UITableViewController, DropDownMenuDelegate {
         toolbarMenu = DropDownMenu(frame: view.bounds)
         toolbarMenu.delegate = self
 
-        let itemCell = DropDownMenuCell()
-        itemCell.customView = itemAdd
-        itemCell.imageView!.image = UIImage(named: "item")
-        itemCell.imageView!.tintColor = UIColor.flatBlue()
-        
-        let quantityCell = DropDownMenuCell()
-        quantityCell.customView = quantityAdd
-        quantityCell.imageView!.image = UIImage(named: "quantity")
-        quantityCell.imageView!.tintColor = UIColor.flatBlue()
-        
-        let costCell = DropDownMenuCell()
-        costCell.customView = costAdd
-        costCell.imageView!.image = UIImage(named: "cost")
-        costCell.imageView!.tintColor = UIColor.flatBlue()
-        
+        let itemCell = DropDownMenuCell(image: "item", textField: DropDownField(placeholder: "Item"))
+        let quantityCell = DropDownMenuCell(image: "quantity", textField: DropDownField(placeholder: "Quantity", num: true))
+        let costCell = DropDownMenuCell(image: "cost", textField: DropDownField(placeholder: "Cost", num: true))
         
         let buttonCell = DropDownMenuCell()
         buttonCell.textLabel!.text = "Save Item"
@@ -255,74 +270,49 @@ class ProductsTableViewController: UITableViewController, DropDownMenuDelegate {
     
     @IBAction func showToolbarMenu() {
         toolbarMenu.show()
-        itemAdd.becomeFirstResponder()
+        itemAdd?.uiTextF().becomeFirstResponder()
     }
     
     func didTapInDropDownMenuBackground(_ menu: DropDownMenu) {
         toolbarMenu.hide()
-        resignFirstResponder()
+        view.endEditing(true)
     }
     
     @objc func addNewItem() {
-        if itemAdd.text!.isEmpty || quantityAdd.text!.isEmpty || costAdd.text!.isEmpty {print("unacceptable")} else {
-            let newID = randomString(length: 17)
+        if (itemAdd?.text.isEmpty)! || (quantityAdd?.text.isEmpty)! || (costAdd?.text.isEmpty)! { return } else {
+            let newID = Constants.sharedInstance.randomString(length: 17)
             ref.child("houses").child(house).child("items").child(newID).setValue([
-                "product": itemAdd.text!,
-                "quantity": quantityAdd.text!,
-                "price": costAdd.text!,
+                "product": itemAdd!.text,
+                "quantity": quantityAdd!.text,
+                "price": costAdd!.text,
                 "tentative": "0",
                 "synced": false,
                 "syncedAdmin": false])
-            itemAdd.text = ""
-            quantityAdd.text = ""
-            costAdd.text = ""
-            resignFirstResponder()
+            itemAdd?.text = ""
+            quantityAdd?.text = ""
+            costAdd?.text = ""
+            view.endEditing(true)
             toolbarMenu.hide()
             loadProducts()
         }
     }
     
-    func randomString(length: Int) -> String {
-        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        return String((0..<length).map{ _ in letters.randomElement()! })
-    }
-    
     @IBAction func approvePressed(_ sender: UISwitch) {
-        SVProgressHUD.show(withStatus: "Loading Products")
-        let thisKey = products[sender.tag]["id"] as! String
-        
-        let newQuantity = (products[sender.tag]["quantity"] as! Int) + Int(products[sender.tag]["tentative"] as! String)!
-        self.ref.child("houses").child(self.house).child("items").child(thisKey).updateChildValues([
-            "quantity": newQuantity,
-            "tentative": "0",
-            "synced": false,
-            "syncedAdmin": false
-            ])
-        self.loadProducts()
+        if !products.isEmpty {
+            SVProgressHUD.show(withStatus: "Loading Products")
+            let thisKey = products[sender.tag]["id"] as! String
+            
+            let newQuantity = (products[sender.tag]["quantity"] as! Int) + Int("\(products[sender.tag]["tentative"] ?? 0)")!
+            print(thisKey)
+            print(newQuantity)
+            self.ref.child("houses").child(self.house).child("items").child(thisKey).updateChildValues([
+                "quantity": newQuantity,
+                "tentative": "0",
+                "synced": false,
+                "syncedAdmin": false
+                ])
+            self.loadProducts()
+        }
     }
 }
 
-class ProductDailyCell: UITableViewCell{
-    @IBOutlet weak var item: PaddingLabel!
-    @IBOutlet weak var price: PaddingLabel!
-    @IBOutlet weak var quantity: PaddingLabel!
-    @IBOutlet weak var tq: PaddingLabel!
-    @IBOutlet weak var approve: UISwitch!
-    @IBOutlet weak var delete: UIButton!
-    @IBOutlet weak var added: UILabel!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
-    }
-}
-
-func statusBarHeight() -> CGFloat {
-    let statusBarSize = UIApplication.shared.statusBarFrame.size
-    return min(statusBarSize.width, statusBarSize.height)
-}

@@ -117,7 +117,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
     
     func attemptLogin () {
         if houses.count != 0 {
-            password.resignFirstResponder()
+            view.endEditing(true)
             Auth.auth().signIn(withEmail: "thefosterblue@me.com", password: password.text ?? "") { [weak self] user, error in
                 guard self != nil else {
                     print("Failed Self")

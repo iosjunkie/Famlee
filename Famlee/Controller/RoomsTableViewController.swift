@@ -56,7 +56,6 @@ class RoomsTableViewController: UITableViewController, DropDownMenuDelegate {
         super.viewDidLoad()
         
         self.tableView.rowHeight = 55.0
-        self.tableView.separatorStyle = .none
         self.tableView.refreshControl = refresher
         
         prepareToolbarMenu()
@@ -80,7 +79,10 @@ class RoomsTableViewController: UITableViewController, DropDownMenuDelegate {
         cell.roomNumber.text = (rooms[indexPath.row]["number"] as! String)
         cell.desc.text = (rooms[indexPath.row]["description"] as! String)
         cell.price.text = numberFormatter.string(from: NSNumber(value: Float(rooms[indexPath.row]["price"] as! String)!))!
-        cell.availability.image = rooms[indexPath.row]["occupied"] as! String == "NO" ? UIImage(named: "vacant"): UIImage(named: "occupied")
+        
+        // If not occupied/vacant green
+        // If occupied red
+        cell.availability.tintColor = rooms[indexPath.row]["occupied"] as! String == "NO" ? UIColor.init(hexString: "5CD055") : UIColor.init(hexString: "EE7FA7")
         cell.desc.onClick = {
             self.roomPressed(row: indexPath.row, sender: cell.desc)
         }
@@ -90,8 +92,8 @@ class RoomsTableViewController: UITableViewController, DropDownMenuDelegate {
         return cell
     }
     
-    @IBAction func sortBy(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
+    @IBAction func sortBy(_ sender: UIButton) {
+        switch sender.tag {
         case 0:
             self.rooms = self.rooms.sorted(by: {($1["number"] as! NSString).doubleValue > ($0["number"] as! NSString).doubleValue})
             self.tableView.reloadData()
@@ -212,7 +214,7 @@ class RoomsTableViewController: UITableViewController, DropDownMenuDelegate {
             
             // 2
             let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { (alert: UIAlertAction!) -> Void in
-                self.ref.child("houses").child(self.house).child("rooms").child(self.rooms[indexPath.row]["id"] as! String).setValue(nil)
+                self.ref.child("houses").child(self.house).child("rooms").child(thisKey as! String).setValue(nil)
                 self.refresh()
             })
             
@@ -274,12 +276,12 @@ class RoomsTableViewController: UITableViewController, DropDownMenuDelegate {
     
     func didTapInDropDownMenuBackground(_ menu: DropDownMenu) {
         toolbarMenu.hide()
-        resignFirstResponder()
+        view.endEditing(true)
     }
     
     @objc func addNewRoom() {
         if numberAdd.text!.isEmpty || descAdd.text!.isEmpty || costAdd.text!.isEmpty {print("unacceptable")} else {
-            let newID = randomString(length: 17)
+            let newID = Constants.sharedInstance.randomString(length: 17)
             ref.child("houses").child(house).child("rooms").child(newID).setValue([
                 "number": numberAdd.text!,
                 "description": descAdd.text!,
@@ -290,60 +292,9 @@ class RoomsTableViewController: UITableViewController, DropDownMenuDelegate {
             numberAdd.text = ""
             descAdd.text = ""
             costAdd.text = ""
-            resignFirstResponder()
+            view.endEditing(true)
             toolbarMenu.hide()
             refresh()
         }
-    }
-    
-    func randomString(length: Int) -> String {
-        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        return String((0..<length).map{ _ in letters.randomElement()! })
-    }
-    
-}
-
-// MARK - Cell 
-class RoomsCell: UITableViewCell {
-    @IBOutlet weak var roomNumber: PaddingLabel!
-    @IBOutlet weak var desc: PaddingLabel!
-    @IBOutlet weak var price: PaddingLabel!
-    
-    @IBOutlet weak var availability: UIImageView!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
-    }
-
-}
-
-@IBDesignable public class PaddingLabel: UILabel {
-    
-    @IBInspectable var topInset: CGFloat = 5.0
-    @IBInspectable var bottomInset: CGFloat = 5.0
-    @IBInspectable var leftInset: CGFloat = 16.0
-    @IBInspectable var rightInset: CGFloat = 16.0
-    
-    override public func drawText(in rect: CGRect) {
-        let insets = UIEdgeInsets.init(top: topInset, left: leftInset, bottom: bottomInset, right: rightInset)
-        super.drawText(in: rect.inset(by: insets))
-    }
-    
-    override public var intrinsicContentSize: CGSize {
-        let size = super.intrinsicContentSize
-        return CGSize(width: size.width + leftInset + rightInset,
-                      height: size.height + topInset + bottomInset)
-    }
-    
-    var onClick: () -> Void = {}
-    override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        onClick()
     }
 }

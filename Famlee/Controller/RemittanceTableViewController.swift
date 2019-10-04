@@ -84,7 +84,7 @@ class RemittanceTableViewController: UITableViewController {
         numberFormatter.numberStyle = .currency
         
         var createdAtString = String(describing: remittances[indexPath.row]["createdAt"]!)
-        let createdAt = dateToTime(date: &createdAtString)
+        let createdAt = Constants.sharedInstance.dateToTime(date: &createdAtString)
         let cell = tableView.dequeueReusableCell(withIdentifier: "remittanceDailyCell", for: indexPath) as! RemittanceDailyCell
         cell.number.text = String(describing: remittances[indexPath.row]["number"]!)
         cell.dateTime.text = createdAt
@@ -151,10 +151,6 @@ class RemittanceTableViewController: UITableViewController {
     
     // MARK: - Finish picking date
     @objc func dateChanged() {
-        getDateFromPicker()
-    }
-    
-    func getDateFromPicker() {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM yyyy"
         pickMonthAndYear.text = formatter.string(from: datePicker.date)
@@ -162,12 +158,12 @@ class RemittanceTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         changeContentsAccdgToDate()
-        pickMonthAndYear.resignFirstResponder()
+        view.endEditing(true)
     }
     
     @objc func doneButtonAction() {
         changeContentsAccdgToDate()
-        self.view.endEditing(true)
+        view.endEditing(true)
     }
     
     func changeContentsAccdgToDate() {
@@ -202,32 +198,5 @@ class RemittanceTableViewController: UITableViewController {
         optionMenu.popoverPresentationController?.sourceView = sender
         self.present(optionMenu, animated: true, completion: nil)
     }
-    
-    func dateToTime(date: inout String) -> String {
-        date.removeSubrange(date.range(of: "GMT")!.lowerBound ..< date.endIndex)
-        let dateFormatterGet = DateFormatter()
-        dateFormatterGet.dateFormat = "E MMM d yyyy HH:mm:ss"
-        let formattedDate = dateFormatterGet.date(from: date)
-        dateFormatterGet.dateFormat = "MMM d"
-        return dateFormatterGet.string(from: formattedDate!)
-    }
 }
 
-// MARK: - REMITTANCES TABLE VIEW CELL
-class RemittanceDailyCell: UITableViewCell {
-    
-    @IBOutlet weak var amount: PaddingLabel!
-    @IBOutlet weak var number: PaddingLabel!
-    @IBOutlet weak var dateTime: PaddingLabel!
-    @IBOutlet weak var delete: UIButton!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
-    }
-}
