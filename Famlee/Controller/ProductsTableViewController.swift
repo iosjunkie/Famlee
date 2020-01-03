@@ -50,23 +50,17 @@ class ProductsTableViewController: UITableViewController, DropDownMenuDelegate {
         super.viewDidLoad()
 
         self.tableView.rowHeight = 55.0
-        self.tableView.separatorStyle = .none
+        self.tableView.refreshControl = refresher
         
         // Start DropDownMenuItem
-        
         prepareToolbarMenu()
         toolbarMenu.container = view
-        
-        //
-        
-            }
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        SVProgressHUD.show(withStatus: "Loading Products")
         loadProducts()
-
     }
 
     // MARK: - Table view data source
@@ -79,7 +73,9 @@ class ProductsTableViewController: UITableViewController, DropDownMenuDelegate {
         numberFormatter.numberStyle = .currency
         let cell = tableView.dequeueReusableCell(withIdentifier: "productDailyCell", for: indexPath) as! ProductDailyCell
         cell.item.text = String(describing: products[indexPath.row]["product"]!)
-        cell.price.text = numberFormatter.string(from: NSNumber(value: Float(products[indexPath.row]["price"] as! String)!))
+        if let price = Float("\(products[indexPath.row]["price"] ?? 0)") {
+            cell.price.text = numberFormatter.string(from: NSNumber(value: price))
+        }
         cell.quantity.text = String(describing: products[indexPath.row]["quantity"] ?? "0")
         cell.tq.text = String(describing: products[indexPath.row]["tentative"]!)
         if cell.tq.text! == "0" {
@@ -95,8 +91,6 @@ class ProductsTableViewController: UITableViewController, DropDownMenuDelegate {
         
         // Tags
         cell.approve.tag = indexPath.row
-        cell.delete.tag = indexPath.row
-        
         cell.price.onClick = {
             self.pricePressed(row: indexPath.row, sender: cell.price)
         }
@@ -107,26 +101,29 @@ class ProductsTableViewController: UITableViewController, DropDownMenuDelegate {
         return cell
     }
     
-    @IBAction func deletePressed(_ sender: UIButton) {
-        // 1
-        let thisProduct = products[sender.tag]["product"]
-        let thisKey = products[sender.tag]["id"]
-        let optionMenu = UIAlertController(title: nil, message: "Are you sure you want to delete \(thisProduct!)?", preferredStyle: .actionSheet)
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let id = products[indexPath.row]["id"]
+        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+            let optionMenu = UIAlertController(title: nil, message: "Are you sure you want to delete \(self.products[indexPath.row]["product"]!)?", preferredStyle: .actionSheet)
+            
+            // 2
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { (alert: UIAlertAction!) -> Void in
+                self.ref.child("houses").child(self.house).child("remove").child("items").child(id as! String).setValue(id as! String)
+                self.ref.child("houses").child(self.house).child("items").child(id as! String).setValue(nil)
+                self.products.remove(at: indexPath.row)
+                self.tableView.deleteRows(at: [indexPath], with: .right)
+            })
+            
+            // 4
+            optionMenu.addAction(deleteAction)
+            
+            // 5
+            
+            optionMenu.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
+            self.present(optionMenu, animated: true, completion: nil)
+        }
         
-        // 2
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { (alert: UIAlertAction!) -> Void in
-            self.ref.child("houses").child(self.house).child("remove").child("items").child(thisKey as! String).setValue(thisKey as! String)
-            self.ref.child("houses").child(self.house).child("items").child(thisKey as! String).setValue(nil)
-            self.loadProducts()
-        })
-        
-        // 4
-        optionMenu.addAction(deleteAction)
-        
-        // 5
-        
-        optionMenu.popoverPresentationController?.sourceView = sender
-        self.present(optionMenu, animated: true, completion: nil)
+        return [delete]
     }
     
     func pricePressed(row: Int, sender: PaddingLabel) {
@@ -198,27 +195,32 @@ class ProductsTableViewController: UITableViewController, DropDownMenuDelegate {
     }
     
     @objc func loadProducts() {
-        products = [NSDictionary]()
-        ref.child("houses").child(house).child("items").observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            if let products = snapshot.value as? NSDictionary {
-                for product in products {
-                    //do your logic and validation here
-                    self.products.append(product.value as! NSDictionary)
-                    self.products.last?.setValue(product.key as! String, forKey: "id")
+        SVProgressHUD.show(withStatus: "Loading Products")
+        
+        DispatchQueue.global(qos: .background).async {
+            self.ref.child("houses").child(self.house).child("items").observeSingleEvent(of: .value, with: { (snapshot) in
+                defer {
+                    self.tableView.reloadData()
+                    self.refresher.endRefreshing()
+                    if SVProgressHUD.isVisible() { SVProgressHUD.dismiss() }
                 }
-                self.products = self.products.sorted(by: {($1["product"] as! String) > ($0["product"] as! String)})
-                self.tableView.reloadData()
-            } else {
-                print("no results")
+
+                self.products = [NSDictionary]()
+                // Get user value
+                if let products = snapshot.value as? NSDictionary {
+                    for product in products {
+                        //do your logic and validation here
+                        self.products.append(product.value as! NSDictionary)
+                        self.products.last?.setValue(product.key as! String, forKey: "id")
+                    }
+                    self.products = self.products.sorted(by: {($1["product"] as! String) > ($0["product"] as! String)})
+                    
+                }
+            }) { (error) in
+                print(error.localizedDescription)
+                self.refresher.endRefreshing()
+                if SVProgressHUD.isVisible() { SVProgressHUD.dismiss() }
             }
-            self.refresher.endRefreshing()
-            if SVProgressHUD.isVisible() { SVProgressHUD.dismiss() }
-            // ...
-        }) { (error) in
-            print(error.localizedDescription)
-            self.refresher.endRefreshing()
-            if SVProgressHUD.isVisible() { SVProgressHUD.dismiss() }
         }
     }
 
@@ -302,15 +304,22 @@ class ProductsTableViewController: UITableViewController, DropDownMenuDelegate {
             SVProgressHUD.show(withStatus: "Loading Products")
             let thisKey = products[sender.tag]["id"] as! String
             
-            let newQuantity = (products[sender.tag]["quantity"] as! Int) + Int("\(products[sender.tag]["tentative"] ?? 0)")!
-            print(thisKey)
-            print(newQuantity)
+            let newQuantity = Int("\(products[sender.tag]["quantity"] ?? 0)")! + Int("\(products[sender.tag]["tentative"] ?? 0)")!
             self.ref.child("houses").child(self.house).child("items").child(thisKey).updateChildValues([
                 "quantity": newQuantity,
                 "tentative": "0",
                 "synced": false,
                 "syncedAdmin": false
-                ])
+            ]) { err, ref  in
+                DispatchQueue.main.async {
+                    if let _ = err {
+                        Constants.sharedInstance.showError(message: "Something went wrong!")
+                    } else {
+                        Constants.sharedInstance.showSuccess(message: "\(newQuantity) new \(String(describing: self.products[sender.tag]["product"]!))s")
+                        print(thisKey)
+                    }
+                }
+            }
             self.loadProducts()
         }
     }

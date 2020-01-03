@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 import Firebase
 import ChameleonFramework
 import SVProgressHUD
@@ -46,9 +45,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
             // Do any additional setup after loading the view.
             password.delegate = self
             // If there is internet
-            if NetworkReachabilityManager()!.isReachable {
+            Constants.sharedInstance.online { (err) in
+                guard err == false else { return }
                 SVProgressHUD.show(withStatus: "Loading Houses")
-                housePick.reloadComponent(0)
+                self.housePick.reloadComponent(0)
                 self.loginButton.isHidden = false
                 SVProgressHUD.dismiss()
                 self.password.becomeFirstResponder()
@@ -119,20 +119,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
         if houses.count != 0 {
             view.endEditing(true)
             Auth.auth().signIn(withEmail: "thefosterblue@me.com", password: password.text ?? "") { [weak self] user, error in
-                guard self != nil else {
-                    print("Failed Self")
-                    self?.password.becomeFirstResponder()
-                    return
-                }
-                if error != nil {
-                    print("Failed")
-                    self?.password.becomeFirstResponder()
-                    return
-                }
+                guard self != nil else { return }
+                guard error == nil else { return }
+                
                 UserDefaults.standard.set(self!.houses[self!.housePick.selectedRow(inComponent: 0)], forKey: "house")
                 
                 self!.performSegue(withIdentifier: "goToDash", sender: self)
-                // ...
             }
         }
     }

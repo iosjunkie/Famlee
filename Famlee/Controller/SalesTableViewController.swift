@@ -42,11 +42,12 @@ class SalesTableViewController: UITableViewController {
     var totalRoom : Float = 0
     var totalSale : Float = 0
     
+    var done = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.tableView.rowHeight = 55.0
-        self.tableView.separatorStyle = .none
         self.tableView.refreshControl = refresher
         
         //init toolbar
@@ -72,9 +73,15 @@ class SalesTableViewController: UITableViewController {
         currentDay = dateFormatter.string(from: date)
         dateFormatter.dateFormat = "MMMM d, yyyy"
         pickDate.text = dateFormatter.string(from: datePicker.date)
-        
-        SVProgressHUD.show(withStatus: "Loading Sales")
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(sortAndStopLoading(n:)), name: NSNotification.Name.init("done"), object: nil)
         loadSales()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.init("done"), object: nil)
     }
 
     // MARK: - Table view data source
@@ -107,62 +114,95 @@ class SalesTableViewController: UITableViewController {
     }
     
     @objc func loadSales() {
+        SVProgressHUD.show(withStatus: "Loading Sales")
+        
+        // Reset Array
+        
+        self.totalMerch = 0
+        self.totalRoom = 0
+        self.totalSale = 0
+    
         let selectedDate = currentYear + "-\(currentMonth)-" + currentDay
-
-        ref.child("houses").child(house).child("daily").child("merchandises").child(selectedDate).observeSingleEvent(of: .value, with: { (snapshot1) in
-            // Reset the array
-            self.sales.removeAll()
-            self.totalMerch = 0
-            self.totalRoom = 0
-            self.totalSale = 0
-            // If no one has bought anything in yet
-            if !snapshot1.hasChildren() {
-                self.stopLoading()
+        
+        // Reset done
+        downloadMerch(selectedDate: selectedDate) { (err) in
+            guard err == false else {
+                // Call done the 2nd time to stop it from loading
+                NotificationCenter.default.post(name: NSNotification.Name.init("done"), object: nil)
                 return
             }
-            // If there are sales
-            if let merchandises = snapshot1.value as? NSDictionary {
-                for merchandise in merchandises {
-                    //do your logic and validation here
-                    self.sales.append(merchandise.value as! NSDictionary)
-                    self.totalMerch += self.sales.last!["amount"] as? Float ?? self.sales.last!["price"] as! Float
-                    self.totalSale += self.sales.last!["amount"] as? Float ?? self.sales.last!["price"] as! Float
-                }
-                self.ref.child("houses").child(self.house).child("daily").child("rooms").child(selectedDate).observeSingleEvent(of: .value, with: { (snapshot2) in
-                    // If no one has checked in yet therefore, stop the laoding
-                    if !snapshot2.hasChildren() {
-                        self.stopLoading()
-                        return
-                    }
-                    // Get user value
-                    if let rooms = snapshot2.value as? NSDictionary {
-                        for room in rooms {
-                            //do your logic and validation here
-                            self.sales.append(room.value as! NSDictionary)
-                            self.totalRoom += self.sales.last!["amount"] as? Float ?? self.sales.last!["price"] as! Float
-                            self.totalSale += self.sales.last!["amount"] as? Float ?? self.sales.last!["price"] as! Float
-                        }
-                        // Successfully appeneded rooms
-                        self.sales = self.sales.sorted(by: {($0["number"] as? Int ?? 0) > ($1["number"] as? Int ?? 0)})
-                        self.stopLoading()
-                    }
-                }) { (error) in
-                    // If rooms cannot be loaded
-                    print(error.localizedDescription)
-                    self.sales = self.sales.sorted(by: {($0["number"] as! Int) > ($1["number"] as! Int)})
-                    self.stopLoading()
-                }
-            } else {
+            self.downloadRooms(selectedDate: selectedDate)
+        }
+    }
+    
+    @objc func sortAndStopLoading(n: NSNotification) {
+        done += 1
+        
+        if done == 2 {
+            self.sales = self.sales.sorted(by: {($0["number"] as! Int) > ($1["number"] as! Int)})
+            DispatchQueue.main.async {
                 self.stopLoading()
             }
+        }
+    }
+    
+    func downloadMerch(selectedDate: String, completion: @escaping (Bool) -> ()) {
+        ref.child("houses").child(house).child("daily").child("merchandises").child(selectedDate).observeSingleEvent(of: .value, with: { (snapshot1) in
+            var err = false
+            defer {
+                NotificationCenter.default.post(name: NSNotification.Name.init("done"), object: nil)
+                completion(err)
+            }
+            self.sales.removeAll()
+            // If there are buyers
+            if snapshot1.hasChildren() {
+                // If there are sales
+                if let merchandises = snapshot1.value as? NSDictionary {
+                    for merchandise in merchandises {
+                        //do your logic and validation here
+                        self.sales.append(merchandise.value as! NSDictionary)
+                        self.totalMerch += self.sales.last!["amount"] as? Float ?? self.sales.last!["price"] as! Float
+                        self.totalSale += self.sales.last!["amount"] as? Float ?? self.sales.last!["price"] as! Float
+                    }
+                    err = false
+                } else { err = true }
+            } else { err = false }
         }) { (error) in
+            NotificationCenter.default.post(name: NSNotification.Name.init("done"), object: nil)
             print(error.localizedDescription)
-            self.stopLoading()
+            completion(true)
+        }
+    }
+    
+    func downloadRooms(selectedDate: String) {
+        self.ref.child("houses").child(self.house).child("daily").child("rooms").child(selectedDate).observeSingleEvent(of: .value, with: { (snapshot2) in
+            defer {
+                NotificationCenter.default.post(name: NSNotification.Name.init("done"), object: nil)
+            }
+            // If there are checkins
+            if snapshot2.hasChildren() {
+                // Get user value
+                if let rooms = snapshot2.value as? NSDictionary {
+                    for room in rooms {
+                        //do your logic and validation here
+                        self.sales.append(room.value as! NSDictionary)
+                        self.totalRoom += self.sales.last!["amount"] as? Float ?? self.sales.last!["price"] as! Float
+                        self.totalSale += self.sales.last!["amount"] as? Float ?? self.sales.last!["price"] as! Float
+                    }
+                }
+            }
+        }) { (error) in
+            NotificationCenter.default.post(name: NSNotification.Name.init("done"), object: nil)
+            print(error.localizedDescription)
         }
     }
     
     func stopLoading() {
-        self.tableView.reloadData()
+        if sales.count > 0 {
+            self.tableView.reloadData()
+        } else {
+            Constants.sharedInstance.showError(message: "No records found!")
+        }
         self.refresher.endRefreshing()
         if SVProgressHUD.isVisible() { SVProgressHUD.dismiss() }
         
@@ -171,6 +211,9 @@ class SalesTableViewController: UITableViewController {
         totalSales.text = numberFormatter.string(from: NSNumber(value:totalSale))
         totalMerchandise.text = numberFormatter.string(from: NSNumber(value:totalMerch))
         totalRooms.text = numberFormatter.string(from: NSNumber(value:totalRoom))
+        
+        // reset done
+        done = 0
     }
     
     @objc func dateChanged() {

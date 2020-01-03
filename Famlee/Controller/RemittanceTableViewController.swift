@@ -42,7 +42,6 @@ class RemittanceTableViewController: UITableViewController {
         super.viewDidLoad()
 
         self.tableView.rowHeight = 55.0
-        self.tableView.separatorStyle = .none
         self.tableView.refreshControl = refresher
         
         //init toolbar
@@ -84,12 +83,11 @@ class RemittanceTableViewController: UITableViewController {
         numberFormatter.numberStyle = .currency
         
         var createdAtString = String(describing: remittances[indexPath.row]["createdAt"]!)
-        let createdAt = Constants.sharedInstance.dateToTime(date: &createdAtString)
+        let createdAt = Constants.sharedInstance.dateToDay(date: &createdAtString)
         let cell = tableView.dequeueReusableCell(withIdentifier: "remittanceDailyCell", for: indexPath) as! RemittanceDailyCell
         cell.number.text = String(describing: remittances[indexPath.row]["number"]!)
         cell.dateTime.text = createdAt
         cell.amount.text = numberFormatter.string(from: NSNumber(value: remittances[indexPath.row]["amount"] as! Float))
-        cell.delete.tag = indexPath.row
         return cell
     }
 
@@ -99,29 +97,22 @@ class RemittanceTableViewController: UITableViewController {
         for day in 1 ... daysInMonth() {
             DispatchQueue.global(qos: .background).async {
             self.ref.child("houses").child(self.house).child("daily").child("encash").child("\(selectedYearAndMonth)-\(day)").observeSingleEvent(of: .value, with: { (snapshot) in
-                    if day == 1 { // This is needed to prevent index out of range
-                        self.total = 0
-                        self.remittances.removeAll()
+                if day == 1 { // This is needed to prevent index out of range
+                    self.total = 0
+                    self.remittances.removeAll()
+                }
+                if let remits = snapshot.value as? NSDictionary {
+                    for remit in remits {
+                        //do your logic and validation here
+                        self.remittances.append(remit.value as! NSDictionary)
+                        self.remittances.last?.setValue(remit.key as! String, forKey: "id")
+                        self.remittances.last?.setValue("\(selectedYearAndMonth)-\(day)", forKey: "date")
+                        self.total += self.remittances.last!["amount"] as! Float
                     }
-                    if let remits = snapshot.value as? NSDictionary {
-                        for remit in remits {
-                            //do your logic and validation here
-                            self.remittances.append(remit.value as! NSDictionary)
-                            self.remittances.last?.setValue(remit.key as! String, forKey: "id")
-                            self.remittances.last?.setValue("\(selectedYearAndMonth)-\(day)", forKey: "date")
-                            self.total += self.remittances.last!["amount"] as! Float
-                        }
-                        DispatchQueue.main.async {
-                            self.remittances = self.remittances.sorted(by: {($0["number"] as! Int) > ($1["number"] as! Int)})
-                            self.tableView.reloadData()
-                            self.stopLoading()
-                        }
-                    } else {
-                        print("no results")
-                    }
-                    if day == self.daysInMonth(){
-                        self.stopLoading()
-                    }
+                }
+                if day == self.daysInMonth(){
+                    self.stopLoading()
+                }
                     // ...
                 }) { (error) in
                     print(error.localizedDescription)
@@ -141,12 +132,15 @@ class RemittanceTableViewController: UITableViewController {
     }
     
     func stopLoading() {
-        self.refresher.endRefreshing()
-        if SVProgressHUD.isVisible() { SVProgressHUD.dismiss() }
-        tableView.reloadData()
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .currency
-        self.totalRemittances.text = numberFormatter.string(from: NSNumber(value:self.total))
+        DispatchQueue.main.async {
+            self.remittances = self.remittances.sorted(by: {($0["number"] as! Int) > ($1["number"] as! Int)})
+            self.tableView.reloadData()
+            self.refresher.endRefreshing()
+            if SVProgressHUD.isVisible() { SVProgressHUD.dismiss() }
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .currency
+            self.totalRemittances.text = numberFormatter.string(from: NSNumber(value:self.total))
+        }
     }
     
     // MARK: - Finish picking date
@@ -177,26 +171,29 @@ class RemittanceTableViewController: UITableViewController {
         loadRemittances()
     }
     
-    @IBAction func deletePressed(_ sender: UIButton) {
-        // 1
-        let thisRemittance = remittances[sender.tag]["number"]
-        let thisKey = remittances[sender.tag]["id"]
-        let date = remittances[sender.tag]["date"] as! String
-        let optionMenu = UIAlertController(title: nil, message: "Are you sure you want to delete \(thisRemittance!)?", preferredStyle: .actionSheet)
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let id = remittances[indexPath.row]["id"]
+        let date = remittances[indexPath.row]["date"] as! String
+        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+            let optionMenu = UIAlertController(title: nil, message: "Are you sure you want to delete \(self.remittances[indexPath.row]["number"]!)?", preferredStyle: .actionSheet)
+            
+            // 2
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { (alert: UIAlertAction!) -> Void in
+                self.ref.child("houses").child(self.house).child("daily").child("encash").child(date).child(id as! String).setValue(nil)
+                self.remittances.remove(at: indexPath.row)
+                self.tableView.deleteRows(at: [indexPath], with: .right)
+            })
+            
+            // 4
+            optionMenu.addAction(deleteAction)
+            
+            // 5
+            
+            optionMenu.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
+            self.present(optionMenu, animated: true, completion: nil)
+        }
         
-        // 2
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { (alert: UIAlertAction!) -> Void in
-            self.ref.child("houses").child(self.house).child("daily").child("encash").child(date).child(thisKey as! String).setValue(nil)
-            self.loadRemittances()
-        })
-        
-        // 4
-        optionMenu.addAction(deleteAction)
-        
-        // 5
-        
-        optionMenu.popoverPresentationController?.sourceView = sender
-        self.present(optionMenu, animated: true, completion: nil)
+        return [delete]
     }
 }
 

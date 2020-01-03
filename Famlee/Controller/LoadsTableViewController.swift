@@ -40,7 +40,6 @@ class LoadsTableViewController: UITableViewController {
         super.viewDidLoad()
 
         self.tableView.rowHeight = 55.0
-        self.tableView.separatorStyle = .none
         self.tableView.refreshControl = refresher
         
         //init toolbar
@@ -90,7 +89,6 @@ class LoadsTableViewController: UITableViewController {
         cell.phone.text = String(describing: loads[indexPath.row]["cell"]!)
         cell.dateTime.text = createdAt
         cell.amount.text = numberFormatter.string(from: NSNumber(value: Float(loads[indexPath.row]["amount"] as! String)!))
-        cell.delete.tag = indexPath.row
         return cell
     }
 
@@ -98,31 +96,27 @@ class LoadsTableViewController: UITableViewController {
     @objc func loadLoads() {
         let selectedDate = currentYear + "-\(currentMonth)-" + currentDay
         ref.child("houses").child(house).child("daily").child("loader").child(selectedDate).observeSingleEvent(of: .value, with: { (snapshot) in
+            defer {
+                self.tableView.reloadData()
+                self.stopLoading()
+            }
             // Reset array
             self.total = 0
             self.loads.removeAll()
             // If there are no people buying load
-            if !snapshot.hasChildren() {
-                self.stopLoading()
-                return
-            }
-            
-            // If everything is normal
-            if let loads = snapshot.value as? NSDictionary {
-                for load in loads {
-                    //do your logic and validation here
-                    self.loads.append(load.value as! NSDictionary)
-                    self.loads.last?.setValue(load.key as! String, forKey: "id")
-                    self.loads.last?.setValue(selectedDate, forKey: "date")
-                    self.total += Float(self.loads.last!["amount"] as! String)!
+            if snapshot.hasChildren() {
+                // If everything is normal
+                if let loads = snapshot.value as? NSDictionary {
+                    for load in loads {
+                        //do your logic and validation here
+                        self.loads.append(load.value as! NSDictionary)
+                        self.loads.last?.setValue(load.key as! String, forKey: "id")
+                        self.loads.last?.setValue(selectedDate, forKey: "date")
+                        self.total += Float(self.loads.last!["amount"] as! String)!
+                    }
+                    self.loads = self.loads.sorted(by: {($0["number"] as! Int) > ($1["number"] as! Int)})
                 }
-                self.loads = self.loads.sorted(by: {($0["number"] as! Int) > ($1["number"] as! Int)})
-                self.tableView.reloadData()
-            } else {
-                print("no results")
             }
-            self.stopLoading()
-            // ...
         }) { (error) in
             print(error.localizedDescription)
             self.stopLoading()
@@ -166,27 +160,29 @@ class LoadsTableViewController: UITableViewController {
         loadLoads()
     }
     
-    @IBAction func deletePressed(_ sender: UIButton) {
-        // 1
-        let thisLoads = loads[sender.tag]["cell"]
-        let thisKey = loads[sender.tag]["id"] as! String
-        let date = loads[sender.tag]["date"] as! String
-        let optionMenu = UIAlertController(title: nil, message: "Are you sure you want to delete \(thisLoads!)?", preferredStyle: .actionSheet)
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let date = loads[indexPath.row]["date"] as! String
+        let id = loads[indexPath.row]["id"] as! String
+        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+            let optionMenu = UIAlertController(title: nil, message: "Are you sure you want to delete \(self.loads[indexPath.row]["cell"])?", preferredStyle: .actionSheet)
+            
+            // 2
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { (alert: UIAlertAction!) -> Void in
+                self.ref.child("houses").child(self.house).child("daily").child("loader").child(date).child(id).setValue(nil)
+                self.loads.remove(at: indexPath.row)
+                self.tableView.deleteRows(at: [indexPath], with: .right)
+            })
+            
+            // 4
+            optionMenu.addAction(deleteAction)
+            
+            // 5
+            
+            optionMenu.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
+            self.present(optionMenu, animated: true, completion: nil)
+        }
         
-        // 2
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { (alert: UIAlertAction!) -> Void in
-            print(date)
-            self.ref.child("houses").child(self.house).child("daily").child("loader").child(date).child(thisKey).setValue(nil)
-            self.loadLoads()
-        })
-        
-        // 4
-        optionMenu.addAction(deleteAction)
-        
-        // 5
-        
-        optionMenu.popoverPresentationController?.sourceView = sender
-        self.present(optionMenu, animated: true, completion: nil)
+        return [delete]
     }
 }
 

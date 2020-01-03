@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="14a-HB-jrC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="14a-HB-jrC">
     <device id="ipad9_7" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -12,10 +12,11 @@
         <scene sceneID="Azl-d1-GWm">
             <objects>
                 <tableViewController id="1v0-Me-MPc" customClass="LoadsTableViewController" customModule="Famlee" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="dn1-Tj-5IY">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="dn1-Tj-5IY">
                         <rect key="frame" x="0.0" y="0.0" width="712" height="728"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="separatorColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="uSe-rr-z68">
                             <rect key="frame" x="0.0" y="0.0" width="712" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -150,14 +151,14 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Product" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gjH-6y-I4u" customClass="PaddingLabel" customModule="Famlee" customModuleProvider="target">
-                                                    <rect key="frame" x="100" y="0.0" width="312" height="55"/>
+                                                    <rect key="frame" x="100" y="0.0" width="362" height="55"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.59607843140000005" green="0.64313725489999995" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qA6-ch-rWp" customClass="PaddingLabel" customModule="Famlee" customModuleProvider="target">
-                                                    <rect key="frame" x="412" y="0.0" width="100" height="55"/>
+                                                    <rect key="frame" x="462" y="0.0" width="100" height="55"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="KLA-TE-lp1"/>
                                                     </constraints>
@@ -166,7 +167,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VzW-XT-BYW" customClass="PaddingLabel" customModule="Famlee" customModuleProvider="target">
-                                                    <rect key="frame" x="512" y="0.0" width="150" height="55"/>
+                                                    <rect key="frame" x="562" y="0.0" width="150" height="55"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
@@ -176,18 +177,6 @@
                                                     <color key="textColor" red="0.59607843140000005" green="0.64313725489999995" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4o0-Vc-rFR">
-                                                    <rect key="frame" x="662" y="0.0" width="50" height="55"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="50" id="TGp-2F-hWz"/>
-                                                    </constraints>
-                                                    <color key="tintColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <state key="normal" image="trash"/>
-                                                    <connections>
-                                                        <action selector="deletePressed:" destination="1v0-Me-MPc" eventType="touchUpInside" id="Pck-qD-Klv"/>
-                                                    </connections>
-                                                </button>
                                             </subviews>
                                         </stackView>
                                     </subviews>
@@ -201,7 +190,6 @@
                                 <connections>
                                     <outlet property="amount" destination="qA6-ch-rWp" id="0an-YF-dkJ"/>
                                     <outlet property="dateTime" destination="VzW-XT-BYW" id="zlg-dL-pJE"/>
-                                    <outlet property="delete" destination="4o0-Vc-rFR" id="6T9-Ns-qjF"/>
                                     <outlet property="number" destination="t05-53-Vhr" id="kXP-zn-WfJ"/>
                                     <outlet property="phone" destination="gjH-6y-I4u" id="Tn9-AI-pa6"/>
                                 </connections>
@@ -226,10 +214,11 @@
         <scene sceneID="JBe-bt-0aD">
             <objects>
                 <tableViewController id="b9T-J0-mdg" customClass="ExpensesTableViewController" customModule="Famlee" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ASM-Kk-4VU">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ASM-Kk-4VU">
                         <rect key="frame" x="0.0" y="0.0" width="712" height="728"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="separatorColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="TDP-yE-O9J">
                             <rect key="frame" x="0.0" y="0.0" width="712" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -363,14 +352,14 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JVx-ST-bEx" customClass="PaddingLabel" customModule="Famlee" customModuleProvider="target">
-                                                    <rect key="frame" x="100" y="0.0" width="262" height="55"/>
+                                                    <rect key="frame" x="100" y="0.0" width="312" height="55"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.59607843140000005" green="0.64313725489999995" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sKk-Tb-RbD" customClass="PaddingLabel" customModule="Famlee" customModuleProvider="target">
-                                                    <rect key="frame" x="362" y="0.0" width="150" height="55"/>
+                                                    <rect key="frame" x="412" y="0.0" width="150" height="55"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <rect key="contentStretch" x="0.050000000000000003" y="0.0" width="1" height="1"/>
                                                     <constraints>
@@ -381,7 +370,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3SF-sI-bQS" customClass="PaddingLabel" customModule="Famlee" customModuleProvider="target">
-                                                    <rect key="frame" x="512" y="0.0" width="150" height="55"/>
+                                                    <rect key="frame" x="562" y="0.0" width="150" height="55"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="150" id="0kM-hS-wX2"/>
                                                     </constraints>
@@ -389,18 +378,6 @@
                                                     <color key="textColor" red="0.59607843140000005" green="0.64313725489999995" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="09x-h7-ARp">
-                                                    <rect key="frame" x="662" y="0.0" width="50" height="55"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="50" id="RUW-yq-BEq"/>
-                                                    </constraints>
-                                                    <color key="tintColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <state key="normal" image="trash"/>
-                                                    <connections>
-                                                        <action selector="deletePressed:" destination="b9T-J0-mdg" eventType="touchUpInside" id="TKY-vl-ndM"/>
-                                                    </connections>
-                                                </button>
                                             </subviews>
                                         </stackView>
                                     </subviews>
@@ -413,7 +390,6 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="dateTime" destination="3SF-sI-bQS" id="zkx-Eo-fPo"/>
-                                    <outlet property="delete" destination="09x-h7-ARp" id="Wf3-Hd-TGJ"/>
                                     <outlet property="desc" destination="JVx-ST-bEx" id="bPc-Bz-PdE"/>
                                     <outlet property="number" destination="TyN-Az-LZT" id="KDq-5o-zZb"/>
                                     <outlet property="price" destination="sKk-Tb-RbD" id="iUC-4K-UV7"/>
@@ -439,10 +415,11 @@
         <scene sceneID="Htl-8u-87O">
             <objects>
                 <tableViewController id="Q5S-1i-J1w" customClass="RemittanceTableViewController" customModule="Famlee" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Dlr-ll-l1M">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Dlr-ll-l1M">
                         <rect key="frame" x="0.0" y="0.0" width="712" height="728"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.97722035646438599" green="0.98266309499740601" blue="0.99318581819534302" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="separatorColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="iZ9-b9-17I">
                             <rect key="frame" x="0.0" y="0.0" width="712" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -494,9 +471,9 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oIp-RL-CkZ">
-                                            <rect key="frame" x="75" y="0.0" width="96" height="44"/>
+                                            <rect key="frame" x="75" y="0.0" width="165" height="44"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="96" id="SIm-ZF-7k9"/>
+                                                <constraint firstAttribute="width" constant="165" id="SIm-ZF-7k9"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="17"/>
                                             <color key="textColor" red="0.27912276983261108" green="0.26919862627983093" blue="0.44788199663162231" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -557,27 +534,15 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jul 28" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a7p-ak-XG8" customClass="PaddingLabel" customModule="Famlee" customModuleProvider="target">
-                                                    <rect key="frame" x="562" y="0.0" width="100" height="55"/>
+                                                    <rect key="frame" x="562" y="0.0" width="150" height="55"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="100" id="cdB-56-Q3E"/>
+                                                        <constraint firstAttribute="width" constant="150" id="cdB-56-Q3E"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.59607843140000005" green="0.64313725489999995" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ir-1W-r1G">
-                                                    <rect key="frame" x="662" y="0.0" width="50" height="55"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="50" id="Rhq-1B-wn5"/>
-                                                    </constraints>
-                                                    <color key="tintColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <state key="normal" image="trash"/>
-                                                    <connections>
-                                                        <action selector="deletePressed:" destination="Q5S-1i-J1w" eventType="touchUpInside" id="Np6-y2-Cv3"/>
-                                                    </connections>
-                                                </button>
                                             </subviews>
                                         </stackView>
                                     </subviews>
@@ -591,7 +556,6 @@
                                 <connections>
                                     <outlet property="amount" destination="W24-9d-btf" id="6q6-1r-r0x"/>
                                     <outlet property="dateTime" destination="a7p-ak-XG8" id="aSb-NW-0iV"/>
-                                    <outlet property="delete" destination="7Ir-1W-r1G" id="f0d-AU-pWx"/>
                                     <outlet property="number" destination="mPp-Wf-xT1" id="j5C-xb-U0E"/>
                                 </connections>
                             </tableViewCell>
@@ -615,10 +579,11 @@
         <scene sceneID="7bR-gI-6zm">
             <objects>
                 <tableViewController id="w6F-zS-a7F" customClass="ProductsTableViewController" customModule="Famlee" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="RrJ-UA-PVD">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="RrJ-UA-PVD">
                         <rect key="frame" x="0.0" y="0.0" width="712" height="728"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="separatorColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="bpP-Ka-FQn">
                             <rect key="frame" x="0.0" y="0.0" width="712" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -650,7 +615,7 @@
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FUj-BU-EEC">
-                                            <rect key="frame" x="98" y="9.5" width="149" height="26"/>
+                                            <rect key="frame" x="98" y="9" width="149" height="26"/>
                                             <color key="backgroundColor" red="0.29206782580000001" green="0.6104747653" blue="0.95888310669999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="26" id="0zf-mY-MfX"/>
@@ -863,14 +828,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="712" height="55"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JjE-lK-FoB" customClass="PaddingLabel" customModule="Famlee" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="292" height="55"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="282" height="55"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.59607843137254901" green="0.64313725490196072" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SyH-E6-LiQ" customClass="PaddingLabel" customModule="Famlee" customModuleProvider="target">
-                                                    <rect key="frame" x="292" y="0.0" width="100" height="55"/>
+                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SyH-E6-LiQ" customClass="PaddingLabel" customModule="Famlee" customModuleProvider="target">
+                                                    <rect key="frame" x="282" y="0.0" width="100" height="55"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="MNl-mr-sqc"/>
@@ -880,7 +845,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quantity" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nb8-fF-0Al" customClass="PaddingLabel" customModule="Famlee" customModuleProvider="target">
-                                                    <rect key="frame" x="392" y="0.0" width="100" height="55"/>
+                                                    <rect key="frame" x="382" y="0.0" width="100" height="55"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="ayi-b6-Hv7"/>
@@ -890,17 +855,17 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tentative" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JI9-2S-40P" customClass="PaddingLabel" customModule="Famlee" customModuleProvider="target">
-                                                    <rect key="frame" x="492" y="0.0" width="100" height="55"/>
+                                                    <rect key="frame" x="482" y="0.0" width="100" height="55"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.59607843137254901" green="0.64313725490196072" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="center" placeholderIntrinsicWidth="595" placeholderIntrinsicHeight="54.5" translatesAutoresizingMaskIntoConstraints="NO" id="gBR-Xg-YtW">
-                                                    <rect key="frame" x="592" y="0.0" width="70" height="55"/>
+                                                    <rect key="frame" x="582" y="0.0" width="130" height="55"/>
                                                     <subviews>
                                                         <switch opaque="NO" contentMode="center" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5N1-Ik-0K3">
-                                                            <rect key="frame" x="9" y="11" width="51" height="31"/>
+                                                            <rect key="frame" x="20" y="11" width="51" height="31"/>
                                                             <color key="tintColor" red="0.59607843140000005" green="0.64313725489999995" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <connections>
                                                                 <action selector="approvePressed:" destination="w6F-zS-a7F" eventType="valueChanged" id="sYp-Y7-EQx"/>
@@ -909,23 +874,11 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstItem="5N1-Ik-0K3" firstAttribute="leading" secondItem="gBR-Xg-YtW" secondAttribute="leading" constant="9" id="7Eg-Ji-6Lx"/>
-                                                        <constraint firstAttribute="width" constant="70" id="vKK-5V-yzi"/>
+                                                        <constraint firstItem="5N1-Ik-0K3" firstAttribute="leading" secondItem="gBR-Xg-YtW" secondAttribute="leading" constant="20" id="7Eg-Ji-6Lx"/>
+                                                        <constraint firstAttribute="width" constant="130" id="vKK-5V-yzi"/>
                                                         <constraint firstItem="5N1-Ik-0K3" firstAttribute="top" secondItem="gBR-Xg-YtW" secondAttribute="top" constant="11" id="yHd-X0-NvT"/>
                                                     </constraints>
                                                 </view>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hqe-9v-BMg">
-                                                    <rect key="frame" x="662" y="0.0" width="50" height="55"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="50" id="i8i-f4-H6v"/>
-                                                    </constraints>
-                                                    <color key="tintColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <state key="normal" image="trash"/>
-                                                    <connections>
-                                                        <action selector="deletePressed:" destination="w6F-zS-a7F" eventType="touchUpInside" id="tdf-CR-bDy"/>
-                                                    </connections>
-                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="JI9-2S-40P" firstAttribute="width" secondItem="Nb8-fF-0Al" secondAttribute="width" id="yVR-g7-sJA"/>
@@ -941,7 +894,6 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="approve" destination="5N1-Ik-0K3" id="vpY-FR-jQY"/>
-                                    <outlet property="delete" destination="hqe-9v-BMg" id="Jck-3J-PxR"/>
                                     <outlet property="item" destination="JjE-lK-FoB" id="IeK-xf-HIM"/>
                                     <outlet property="price" destination="SyH-E6-LiQ" id="alD-pC-0pj"/>
                                     <outlet property="quantity" destination="Nb8-fF-0Al" id="bf1-K0-Nc9"/>
@@ -1096,12 +1048,12 @@
         <!--Rooms-->
         <scene sceneID="gos-4d-cqd">
             <objects>
-                <tableViewController id="oGy-iS-i1u" customClass="RoomsTableViewController" customModule="Famlee" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController extendedLayoutIncludesOpaqueBars="YES" modalPresentationStyle="fullScreen" id="oGy-iS-i1u" customClass="RoomsTableViewController" customModule="Famlee" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="DA4-H6-6iw">
                         <rect key="frame" x="0.0" y="0.0" width="712" height="728"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="separatorColor" red="0.97558373212814331" green="0.97556585073471069" blue="0.97557657957077026" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="separatorColor" red="0.90980392156862744" green="0.90980392156862744" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="6NR-Pw-KDw">
                             <rect key="frame" x="0.0" y="0.0" width="712" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1321,12 +1273,13 @@
                                                     <color key="textColor" red="0.59647840261459351" green="0.64231568574905396" blue="0.79840445518493652" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="yPc-UJ-fG7">
-                                                    <rect key="frame" x="592" y="0.5" width="120" height="54.5"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" translatesAutoresizingMaskIntoConstraints="NO" id="yPc-UJ-fG7">
+                                                    <rect key="frame" x="592" y="0.0" width="120" height="55"/>
                                                     <color key="tintColor" red="0.36078431372549019" green="0.81568627450980391" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="120" id="Vka-WO-vEF"/>
                                                     </constraints>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small" weight="thin"/>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
@@ -1364,10 +1317,11 @@
         <scene sceneID="KA3-3d-VQh">
             <objects>
                 <tableViewController wantsFullScreenLayout="YES" modalPresentationStyle="fullScreen" id="RSC-vN-N4s" customClass="SalesTableViewController" customModule="Famlee" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="RZh-9i-2sz">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="RZh-9i-2sz">
                         <rect key="frame" x="0.0" y="0.0" width="712" height="728"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="separatorColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="KaK-fN-qHf">
                             <rect key="frame" x="0.0" y="0.0" width="712" height="88"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1523,7 +1477,7 @@
                                                 <constraint firstAttribute="width" constant="75" id="NhG-GB-dAb"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="17"/>
-                                            <state key="normal" title="Date">
+                                            <state key="normal" title="Time">
                                                 <color key="titleColor" red="0.39673882719999998" green="0.33888405560000001" blue="0.52530360220000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             </state>
                                             <connections>
@@ -1541,7 +1495,7 @@
                                     </constraints>
                                 </view>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="July 10, 2019" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jom-hk-QoB">
-                                    <rect key="frame" x="460" y="13" width="208" height="33"/>
+                                    <rect key="frame" x="464" y="13" width="208" height="33"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="33" id="qn3-lK-DZM"/>
                                         <constraint firstAttribute="width" constant="208" id="zPg-v9-LzL"/>
@@ -1582,7 +1536,7 @@
                                 <constraint firstItem="2kE-5t-Wnb" firstAttribute="top" secondItem="CZ3-Zs-0fj" secondAttribute="bottom" constant="-1" id="q1I-1m-iY6"/>
                                 <constraint firstItem="Fmq-vY-PO2" firstAttribute="top" secondItem="teu-B9-ITV" secondAttribute="top" id="rNi-Vu-iKH"/>
                                 <constraint firstItem="oky-Yi-aaF" firstAttribute="leading" secondItem="dWG-6S-ekt" secondAttribute="leading" id="s5a-Tp-RwS"/>
-                                <constraint firstAttribute="trailing" secondItem="Jom-hk-QoB" secondAttribute="trailing" constant="44" id="sKF-Z9-7sD"/>
+                                <constraint firstAttribute="trailing" secondItem="Jom-hk-QoB" secondAttribute="trailing" constant="40" id="sKF-Z9-7sD"/>
                                 <constraint firstItem="0Ni-zq-C2f" firstAttribute="leading" secondItem="Fmq-vY-PO2" secondAttribute="trailing" id="v7R-Ho-a3X"/>
                                 <constraint firstItem="Vum-fi-fIm" firstAttribute="leading" secondItem="arB-pQ-JCB" secondAttribute="leading" id="zkc-bq-tB4"/>
                             </constraints>
@@ -1635,7 +1589,7 @@
                                                     <color key="textColor" red="0.59607843140000005" green="0.64313725489999995" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sept 12" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bX3-eX-aev" customClass="PaddingLabel" customModule="Famlee" customModuleProvider="target">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8:37 PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bX3-eX-aev" customClass="PaddingLabel" customModule="Famlee" customModuleProvider="target">
                                                     <rect key="frame" x="562" y="0.0" width="150" height="55"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
@@ -1696,11 +1650,11 @@
                                         <rect key="frame" x="0.0" y="18" width="712" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RNa-aA-KFq" id="YN5-FN-U5L">
-                                            <rect key="frame" x="0.0" y="0.0" width="680.5" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="681" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Extra Bed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ikn-MF-ntv">
-                                                    <rect key="frame" x="20" y="0.0" width="652.5" height="44"/>
+                                                    <rect key="frame" x="20" y="0.0" width="653" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -1757,7 +1711,7 @@
     <resources>
         <image name="basket" width="30" height="30"/>
         <image name="cellphone" width="30" height="30"/>
-        <image name="circle.fill" catalog="system" width="64" height="62"/>
+        <image name="circle" width="16" height="16"/>
         <image name="drop_arrow" width="9" height="6"/>
         <image name="expense" width="30" height="30"/>
         <image name="header-logo" width="503" height="645"/>
@@ -1766,6 +1720,5 @@
         <image name="sales" width="30" height="30"/>
         <image name="settings" width="30" height="30"/>
         <image name="sign-out" width="30" height="30"/>
-        <image name="trash" width="30" height="30"/>
     </resources>
 </document>

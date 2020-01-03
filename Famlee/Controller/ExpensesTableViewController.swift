@@ -40,7 +40,6 @@ class ExpensesTableViewController: UITableViewController {
         super.viewDidLoad()
 
         self.tableView.rowHeight = 55.0
-        self.tableView.separatorStyle = .none
         self.tableView.refreshControl = refresher
         
         //init toolbar
@@ -93,9 +92,14 @@ class ExpensesTableViewController: UITableViewController {
     @objc func loadExpenses() {
         let selectedDate = currentYear + "-\(currentMonth)-" + currentDay
         ref.child("houses").child(house).child("daily").child("expenses").child(selectedDate).observeSingleEvent(of: .value, with: { (snapshot) in
+            defer {
+                self.stopLoading()
+            }
+
             // Reset aray
             self.total = 0
             self.expenses.removeAll()
+            
             // If there are no expenses
             if !snapshot.hasChildren() {
                 self.stopLoading()
@@ -111,12 +115,7 @@ class ExpensesTableViewController: UITableViewController {
                     self.total += Float(self.expenses.last!["price"] as! String)!
                 }
                 self.expenses = self.expenses.sorted(by: {($0["number"] as! Int) > ($1["number"] as! Int)})
-                self.tableView.reloadData()
-            } else {
-                print("no results")
             }
-            self.stopLoading()
-            // ...
         }) { (error) in
             print(error.localizedDescription)
             self.stopLoading()
@@ -124,9 +123,9 @@ class ExpensesTableViewController: UITableViewController {
     }
     
     func stopLoading() {
+        tableView.reloadData()
         self.refresher.endRefreshing()
         if SVProgressHUD.isVisible() { SVProgressHUD.dismiss() }
-        tableView.reloadData()
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .currency
         self.totalExpenses.text = numberFormatter.string(from: NSNumber(value:self.total))

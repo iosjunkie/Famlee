@@ -184,8 +184,14 @@ class RoomsTableViewController: UITableViewController, DropDownMenuDelegate {
     @objc func refresh() {
         ref.child("houses").child(house).child("rooms").observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
+            defer {
+                // Whether the loading is successful or not, dimiss the loaders
+                self.refresher.endRefreshing()
+                if SVProgressHUD.isVisible() { SVProgressHUD.dismiss() }
+            }
+            self.rooms.removeAll()
             if let rooms = snapshot.value as? NSDictionary {
-                self.rooms.removeAll()
+                
                 for room in rooms {
                     //do your logic and validation here
                     self.rooms.append(room.value as! NSDictionary)
@@ -193,15 +199,11 @@ class RoomsTableViewController: UITableViewController, DropDownMenuDelegate {
                 }
                 self.rooms = self.rooms.sorted(by: {($1["number"] as! NSString).intValue > ($0["number"] as! NSString).intValue})
                 self.tableView.reloadData()
-            } else {
-                print("no results")
             }
-            // Whether the loading is successful or not, dimiss the loaders
-            self.refresher.endRefreshing()
-            if SVProgressHUD.isVisible() { SVProgressHUD.dismiss() }
-            // ...
         }) { (error) in
             print(error.localizedDescription)
+            self.refresher.endRefreshing()
+            if SVProgressHUD.isVisible() { SVProgressHUD.dismiss() }
         }
     }
     
