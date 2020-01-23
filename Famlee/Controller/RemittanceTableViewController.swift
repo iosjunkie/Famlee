@@ -68,7 +68,6 @@ class RemittanceTableViewController: UITableViewController {
         dateFormatter.dateFormat = "MMMM yyyy"
         pickMonthAndYear.text = dateFormatter.string(from: date)
         
-        SVProgressHUD.show(withStatus: "Loading Remittances")
         loadRemittances()
     }
     
@@ -93,6 +92,8 @@ class RemittanceTableViewController: UITableViewController {
 
 
     @objc func loadRemittances() {
+        SVProgressHUD.show(withStatus: "Loading Remittances")
+
         let selectedYearAndMonth = "\(currentYear)-\(currentMonth)"
         for day in 1 ... daysInMonth() {
             DispatchQueue.global(qos: .background).async {
@@ -167,7 +168,6 @@ class RemittanceTableViewController: UITableViewController {
         dateFormatter.dateFormat = "M"
         currentMonth = Int(dateFormatter.string(from: datePicker.date))!-1
         
-        SVProgressHUD.show(withStatus: "Loading Sales")
         loadRemittances()
     }
     

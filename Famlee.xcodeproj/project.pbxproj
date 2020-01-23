@@ -11,7 +11,6 @@
 		E218EDE722E9C03400366E74 /* RemittanceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E218EDE622E9C03400366E74 /* RemittanceTableViewController.swift */; };
 		E21BD89D22E80FFD00D90417 /* ProductsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21BD89C22E80FFD00D90417 /* ProductsTableViewController.swift */; };
 		E21FDFBD22E72DD800E2AF9C /* LoadsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21FDFBC22E72DD800E2AF9C /* LoadsTableViewController.swift */; };
-		E2204F7623428F0900373782 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E2204F7523428F0900373782 /* GoogleService-Info.plist */; };
 		E22625CA233FDB9C0051C92E /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22625C9233FDB9C0051C92E /* PaddingLabel.swift */; };
 		E22625CD233FDCA60051C92E /* RoomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22625CC233FDCA60051C92E /* RoomCell.swift */; };
 		E22625CF233FDCD20051C92E /* SaleDailyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22625CE233FDCD20051C92E /* SaleDailyCell.swift */; };
@@ -29,6 +28,7 @@
 		E2371E8522E496FD002A35EF /* RoomsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2371E8422E496FD002A35EF /* RoomsTableViewController.swift */; };
 		E2426CEA2350C37000488EF6 /* SwiftMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2426CE62350C09E00488EF6 /* SwiftMessages.framework */; };
 		E2426CEE2350C66100488EF6 /* IndexOutOfRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2426CED2350C66100488EF6 /* IndexOutOfRange.swift */; };
+		E28E24E923D979E800E7CC57 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E28E24E823D979E800E7CC57 /* GoogleService-Info.plist */; };
 		E2B102AC22E56D2800027D83 /* JuliusSansOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E2B102AB22E56C7A00027D83 /* JuliusSansOne-Regular.ttf */; };
 		E2B102AE22E5948200027D83 /* ExpensesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B102AD22E5948200027D83 /* ExpensesTableViewController.swift */; };
 		E2DF634022E422530040CA59 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DF633F22E422530040CA59 /* AppDelegate.swift */; };
@@ -45,7 +45,6 @@
 		E21BD89C22E80FFD00D90417 /* ProductsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsTableViewController.swift; sourceTree = "<group>"; };
 		E21FDFBC22E72DD800E2AF9C /* LoadsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadsTableViewController.swift; sourceTree = "<group>"; };
 		E2204F722342885700373782 /* Famlee.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Famlee.entitlements; sourceTree = "<group>"; };
-		E2204F7523428F0900373782 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E22625C9233FDB9C0051C92E /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		E22625CC233FDCA60051C92E /* RoomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCell.swift; sourceTree = "<group>"; };
 		E22625CE233FDCD20051C92E /* SaleDailyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaleDailyCell.swift; sourceTree = "<group>"; };
@@ -63,6 +62,7 @@
 		E2371E8422E496FD002A35EF /* RoomsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsTableViewController.swift; sourceTree = "<group>"; };
 		E2426CE62350C09E00488EF6 /* SwiftMessages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftMessages.framework; path = Carthage/Build/iOS/SwiftMessages.framework; sourceTree = "<group>"; };
 		E2426CED2350C66100488EF6 /* IndexOutOfRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexOutOfRange.swift; sourceTree = "<group>"; };
+		E28E24E823D979E800E7CC57 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E2B102AB22E56C7A00027D83 /* JuliusSansOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JuliusSansOne-Regular.ttf"; sourceTree = "<group>"; };
 		E2B102AD22E5948200027D83 /* ExpensesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesTableViewController.swift; sourceTree = "<group>"; };
 		E2DF633C22E422530040CA59 /* Famlee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Famlee.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,7 +167,7 @@
 				E2DF635822E426DF0040CA59 /* View */,
 				E2DF634A22E422550040CA59 /* LaunchScreen.storyboard */,
 				E2DF634D22E422550040CA59 /* Info.plist */,
-				E2204F7523428F0900373782 /* GoogleService-Info.plist */,
+				E28E24E823D979E800E7CC57 /* GoogleService-Info.plist */,
 			);
 			path = Famlee;
 			sourceTree = "<group>";
@@ -261,7 +261,7 @@
 			files = (
 				E2B102AC22E56D2800027D83 /* JuliusSansOne-Regular.ttf in Resources */,
 				E2DF634C22E422550040CA59 /* LaunchScreen.storyboard in Resources */,
-				E2204F7623428F0900373782 /* GoogleService-Info.plist in Resources */,
+				E28E24E923D979E800E7CC57 /* GoogleService-Info.plist in Resources */,
 				E2371E7F22E471E8002A35EF /* Assets.xcassets in Resources */,
 				E2371E7B22E4478F002A35EF /* Main.storyboard in Resources */,
 			);
